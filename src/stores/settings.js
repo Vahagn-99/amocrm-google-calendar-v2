@@ -5,49 +5,40 @@ import apiClient from '../../apiClient';
 import { useSubdomainStore } from './subdomain';
 
 export const useSettingsStore = defineStore('settings', () => {
+    //store
     const subdomainStore = useSubdomainStore();
-    const settingsList = ref([]);
-    const settings = ref({
-        id: null,
-        user_id: null,
-        tech_id: null,
-        count:null,
-        statuses: [],
-    });
 
-    const hasSettings = ref(false);
+    // state
+    const settings = ref([]);
 
-    const getSettings = async (id) => {
+    // actions
+    const getSettings = async (googleAccountId) => {
         try {
-            let response = await apiClient.get(`lead-exchange/v1/${subdomainStore.subdomainId}/settings/${id}`);
+            const response = await apiClient.get(`calendar/v1/account/${googleAccountId}/settings`);
             settings.value = response.data.data;
         } catch (error) {
             console.log(error);
         }
     }
 
-    const getSettingsList = async () => {
-        try {
-            let response = await apiClient.get(`lead-exchange/v1/${subdomainStore.subdomainId}/settings`);
-            settingsList.value = response.data.data;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    function $reset() {
-        settings.value = {
-            id: null,
-            user_id: null,
-            tech_id: null,
-            count:null,
-            statuses: [],
-        };
-    }
-
     const saveSettings = async () => {
         try {
-            await apiClient.post(`lead-exchange/v1/${subdomainStore.subdomainId}/settings`, settings.value);
+            const { settings, accountId } = data;
+            const response = await apiClient.post(`calendar/v1/account/${accountId}/settings`, {
+                id: settings.id,
+                date_district: settings.date_district,
+                services_parent_id: settings.services_parent_id,
+                end_date_id: settings.end_date_id,
+                event_name_id: settings.event_name_id,
+                event_address_id: settings.event_address_id,
+                event_body: settings.event_body,
+                start_date_id: settings.start_date_id,
+                status_id: settings.status_id,
+                pipeline_id: settings.pipeline_id,
+                google_account_id: accountId,
+                services: settings.services
+            });
+            settings.value = response.data.data;
             await getSettingsList()
             notify({
                 type: 'success',
@@ -63,38 +54,31 @@ export const useSettingsStore = defineStore('settings', () => {
         }
     }
 
-    const destorySettings = async (settingsId) => {
+    const destorySettings = async (accountId, settingsId) => {
         try {
-            await apiClient.delete(`lead-exchange/v1/${subdomainStore.subdomainId}/settings/${settingsId}`);
-            await getSettingsList();
+            await apiClient.delete(`calendar/v1/account/${accountId}/settings/${settingsId}`);
             notify({
                 type: 'success',
                 title: "Пользователь #" + subdomainStore.subdomainId,
-                text: "Настройки успешно Удалены",
+                text: "Что-то пошло не так! Повтарите действе или сообшите нам",
             });
         } catch (error) {
             notify({
                 type: 'error',
                 title: "Пользователь #" + subdomainStore.subdomainId,
-                text: "Что-то пошло не так! Повтарите действе или заново авторизуйтесь",
+                text: "Что-то пошло не так! Повтарите действе или сообшите нам",
             });
         }
     }
 
-
     onMounted(async () => {
-        await getSettingsList()
+        await getSettings()
     })
-
 
     return {
         settings,
-        settingsList,
         getSettings,
-        hasSettings,
         saveSettings,
         destorySettings,
-        getSettingsList,
-        $reset
     };
 })

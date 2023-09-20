@@ -244,23 +244,20 @@
 </template>
 
 <script setup>
-import NavItem from "../components/NavItem.vue";
-import InfoCard from "../components/InfoCard.vue";
+import NavItem from "../components/slots/NavItem.vue";
+import InfoCard from "../components/slots/InfoCard.vue";
 import WidgetDoc from "../components/WidgetDoc.vue";
 import WidgetSettings from "../components/WidgetSettings.vue";
 import { onMounted, ref } from "vue";
 import { oauthModal } from "../helpers/helpers";
 import { useSubdomainStore } from "../stores/subdomain";
-import SettingsPhone from "../components/SettingsPhone.vue";
-import Support from "../components/Support.vue";
+import SettingsPhone from "../components/feedback/SettingsPhone.vue";
+import Support from "../components/feedback/Support.vue";
 import { storeToRefs } from "pinia";
-import {useSettingsStore} from "../stores/settings";
 import {useSelectStore} from "../stores/select";
 
 const subdomainStore = useSubdomainStore();
 const selectStore = useSelectStore();
-
-
 
 const {
   subdomainId,
@@ -289,9 +286,11 @@ async function handleAmoAuth() {
 }
 
 const loadables = ref(["widget", "registred", "license", "status", "hasPhone"]);
+
 function isLoading(element) {
   return loadables.value.includes(element);
 }
+
 function loaded(element) {
   loadables.value = loadables.value.filter((item) => item !== element);
 }

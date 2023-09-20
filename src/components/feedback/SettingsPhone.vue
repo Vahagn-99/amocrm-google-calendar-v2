@@ -171,10 +171,10 @@
 
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import Input from "./Input.vue";
+import Input from "../inputs/Input.vue";
 
-import { useSubdomainStore } from "../stores/subdomain";
-import { useSelectStore } from "../stores/select";
+import { useSubdomainStore } from "../../stores/subdomain";
+import { useSelectStore } from "../../stores/select";
 import { storeToRefs } from "pinia";
 
 const subdomainStore = useSubdomainStore();

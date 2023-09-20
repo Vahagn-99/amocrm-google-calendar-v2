@@ -1,8 +1,8 @@
 {
     "widget": {
-        "name": "Биржа лидов - Лимиты по сделкам от DCT",
-        "short_description": "Биржа лидов - Лимиты по сделкам от DCT",
-        "description": "Биржа лидов - Лимиты по сделкам от DCT"
+        "name": "Google Календарь версия 2.0",
+        "short_description": "Google Календарь версия 2.0",
+        "description": "Google Календарь"
     },
     "settings": {
         "json": "Логин",
@@ -11,6 +11,6 @@
         "try_free": "Попробовать бесплатно"
     },
     "advanced": {
-        "title": "Биржа лидов - Лимиты по сделкам от DCT"
+        "title": "Google Календарь версия 2.0"
     }
 }

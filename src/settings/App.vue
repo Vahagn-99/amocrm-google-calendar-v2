@@ -61,8 +61,8 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import SettingsPhone from "../components/SettingsPhone.vue";
-import Support from "../components/Support.vue";
+import SettingsPhone from "../components/feedback/SettingsPhone.vue";
+import Support from "../components/feedback/Support.vue";
 import { useSubdomainStore } from "../stores/subdomain";
 import { storeToRefs } from "pinia";
 
@@ -76,13 +76,13 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const goToAdvancedSettings = async () => {
   // Get the original button element by its id
-  document.getElementById("save_dct_limits_lead").click();
+  document.getElementById("save_dct_google_calendar").click();
   saveLoading.value = true;
   // need to wait 5 second then
   await delay(5000);
   saveLoading.value = false;
   // perform redirect
-  window.location.href = `https://${subdomain.value.domain}/settings/widgets/dct_limits_lead`;
+  window.location.href = `https://${subdomain.value.domain}/settings/widgets/dct_google_calendar`;
 };
 
 onMounted(async () => {

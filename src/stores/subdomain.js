@@ -3,9 +3,9 @@ import { defineStore } from 'pinia';
 import apiClient from '../../apiClient';
 import { useAmoStore } from "./amocrm";
 
-
 export const useSubdomainStore = defineStore('subdomain', () => {
     const amoStore = useAmoStore();
+  
     //state
     const subdomainId = ref(localStorage.getItem('subdomain_id'));
     const subdomain = ref({});

@@ -198,8 +198,8 @@ import {useSettingsStore} from "../stores/settings";
 import {useSelectStore} from "../stores/select";
 import ShablonItem from "./ShablonItem.vue";
 import {storeToRefs} from "pinia";
-import Select from "./Select.vue";
-import Input from "./Input.vue";
+import Select from "./inputs/Select.vue";
+import Input from "./inputs/Input.vue";
 
 const settingsStore = useSettingsStore();
 const selectStore = useSelectStore();
@@ -209,8 +209,6 @@ const { statuses,users } = storeToRefs(selectStore);
 
 const drawerInstance = ref(null); // Create a ref for the drawer instance
 const emit = defineEmits(["close-drawer"]);
-const isStatusTemplate = ref(false);
-
 
 async function handleSave() {
   await settingsStore.saveSettings();
@@ -219,61 +217,6 @@ async function handleSave() {
     drawerInstance.value.hide(); // Hide the drawer after saving
   }
 }
-
-function handleUser(value){
-  settings.value.user_id=value
-}
-
-function handleCount(value){
-  settings.value.count=value
-}
-
-function handleTechUser(value){
-  settings.value.tech_id=value
-}
-
-function closeModal() {
-  drawerInstance.value.hide();
-  emit("close-drawer");
-}
-
-
-function addNewStatus(name, status) {
-  const statuses = settings.value.statuses.map(st => st.id)
-  if(!statuses.includes(status.id)){
-    settings.value.statuses.push(status);
-  }else{
-    document.getElementById('dct-elem-status-'+status.id).classList.add('dct-elem-trans')
-    setTimeout(()=>{
-      document.getElementById('dct-elem-status-'+status.id).classList.remove('dct-elem-trans')
-    },2000)
-  }
-}
-
-function addPipelineItems(statuses){
-  statuses.forEach(status=>{
-    if(status.id!==142&&status.id!==143){
-      addNewStatus(name,status)
-    }
-  })
-}
-function deleteStatusItem(item) {
-  settings.value.statuses = settings.value.statuses.filter((i) => i !== item);
-}
-
-function openStatusTemplate(event) {
-  if(event.target.classList.contains('dct-shablon-element')){
-    isStatusTemplate.value = true;
-  }
-}
-
-
-
-function toggleStatusTemplate(event) {
-  console.log(event.target.classList.contains('dct-shablon-element'))
-  isStatusTemplate.value = !isStatusTemplate.value;
-}
-
 
 onMounted(async () => {
   const $targetEl = document.getElementById("drawer-example");

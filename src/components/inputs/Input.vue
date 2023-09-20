@@ -33,7 +33,7 @@
 <script setup>
 import { computed } from "vue";
 import { vMaska } from "maska";
-import Popover from "./Popover.vue";
+import Popover from "../Popover.vue";
 
 const props = defineProps({
   popover: {

@@ -43,7 +43,7 @@
 
 <script setup>
 import { computed, ref } from "vue";
-import Popover from "./Popover.vue";
+import Popover from "../Popover.vue";
 
 const props = defineProps({
   popover: {

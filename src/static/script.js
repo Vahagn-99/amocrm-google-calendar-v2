@@ -1,4 +1,4 @@
-define(['./app.js?cache=' + Date.now(),'jquery'], function (App,$) {
+define(['./app.js?cache=' + Date.now()], function (App) {
 
     const Widget = function () {
         const self = this;
@@ -10,7 +10,7 @@ define(['./app.js?cache=' + Date.now(),'jquery'], function (App,$) {
         this.callbacks = {
             async render() {
                 try {
-                    await App.default.render(_amocrm, self,$);
+                    await App.default.render(_amocrm, self);
                     return true
                 } catch (error) {
                     throw error

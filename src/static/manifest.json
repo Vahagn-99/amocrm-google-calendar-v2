@@ -3,7 +3,7 @@
     "name": "widget.name",
     "description": "widget.description",
     "short_description": "widget.short_description",
-    "version": "1.4.9",
+    "version": "6.1.4",
     "interface_version": 2,
     "init_once": false,
     "locale": [
@@ -17,16 +17,7 @@
   },
   "locations": [
     "settings",
-    "advanced_settings",
-    "everywhere",
-    "llist",
-    "culist",
-    "clist",
-    "tlist",
-    "lcard",
-    "cucard",
-    "ccard",
-    "comcard"
+    "advanced_settings"
   ],
   "settings": {
     "json": {
