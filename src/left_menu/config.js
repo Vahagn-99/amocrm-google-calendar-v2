@@ -1,3 +1,7 @@
+import {mountComponent} from "../helpers/mounter";
+import Button from "../render/Button.vue";
+import Calendar from "../calendar/Calendar.vue";
+
 /**
 * Метод срабатывает, когда пользователь переходит на кастомную страницу виджета.
 * Мы должны отрендерить страницу в зависимости от состоянии страницы.
@@ -9,9 +13,10 @@
 *     subitem_code: 'custom_sub_item_3' // ключ подпункта, который был указан в manifest.json
 * }
 */
-export async function handleLeftMenu(params) {
-    alert(1);
-    console.log(params);
-    console.log('barev');
+export async function handleLeftMenu(params,$) {
+    if(window.APP.data.current_entity==="widget_page"){
+        const contextMenu=$('#work_area');
+        mountComponent('calendar-main',Calendar,contextMenu,'widget_page',true)
+    }
     return true;
 }
