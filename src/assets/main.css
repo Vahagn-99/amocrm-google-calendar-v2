@@ -11,23 +11,23 @@
 }
 
 /* width */
-.custom-scroll::-webkit-scrollbar {
+.custom-scroll::-webkit-scrollbar,.fc-scroller::-webkit-scrollbar {
   width: 8px;
 }
 
 /* Track */
-.custom-scroll::-webkit-scrollbar-track {
+.custom-scroll::-webkit-scrollbar-track,.fc-scroller::-webkit-scrollbar-track {
   background: rgba(192, 192, 192, 0.23);
 }
 
 /* Handle */
-.custom-scroll::-webkit-scrollbar-thumb {
+.custom-scroll::-webkit-scrollbar-thumb,.fc-scroller::-webkit-scrollbar-thumb {
   background: #c0c0c0;
   border-radius: 6.5px;
 }
 
 /* Handle on hover */
-.custom-scroll::-webkit-scrollbar-thumb:hover {
+.custom-scroll::-webkit-scrollbar-thumb:hover,.fc-scroller::-webkit-scrollbar-thumb:hover {
   background: #c0c0c0;
 }
 
@@ -84,6 +84,10 @@ select:disabled {
   text-indent: 0; /* 1 */
   border-color: inherit; /* 2 */
   border-collapse: collapse; /* 3 */
+}
+
+.dct-table thead{
+  border-bottom: 1px solid #c7c7c763;
 }
 
 /*.dct-table tr {*/
@@ -945,4 +949,32 @@ color:#363b44
 .dct-lead-exchange-lock-icon p{
   font-weight: 600;
   font-size: 18px;
+}
+
+.dct-calendar-flex{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 14.5px);
+}
+
+#dct_calendar_modal .fc-scrollgrid-sync-table{
+  /*min-height: 490px;*/
+  /*max-height: 490px;*/
+  /*min-width: 1297px;*/
+}
+
+
+#dct_calendar_modal .fc-view-harness.fc-view-harness-active{
+  min-height: 520px;
+  max-height: 520px;
+  /*min-width: 100%;*/
+}
+
+/*#dct_calendar_modal .fc-col-header {*/
+/*  min-width: 100%;*/
+/*}*/
+
+#dct_calendar_modal .fc button{
+  height: auto;
 }

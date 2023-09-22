@@ -306,6 +306,5 @@ onMounted(async () => {
   await subdomainStore.checkHasPhone();
   loaded("hasPhone");
   await selectStore.getStatuses();
-  await selectStore.getUsers();
 });
 </script>

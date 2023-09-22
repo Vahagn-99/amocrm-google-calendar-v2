@@ -15,7 +15,6 @@ export async function mountComponent(id, component, holder, entityIs, append) {
     // Append the account ID to the component's ID for uniqueness
     const accountId = window.APP.constant('account').id;
     const uniqueId = `${id}-${accountId}`;
-    console.log(uniqueId)
     // Return if element with given ID already exists
     if (document.getElementById(uniqueId)) {
         return true;

@@ -3,7 +3,7 @@
     "name": "widget.name",
     "description": "widget.description",
     "short_description": "widget.short_description",
-    "version": "6.1.4",
+    "version": "7.4.0",
     "interface_version": 2,
     "init_once": false,
     "locale": [
@@ -17,8 +17,24 @@
   },
   "locations": [
     "settings",
-    "advanced_settings"
+    "advanced_settings",
+    "lcard-1",
+    "llist-0",
+    "ccard-1",
+    "clist-0",
+    "comcard-0",
+    "everywhere",
+    "widget_page"
   ],
+  "left_menu": {
+    "realty_widget_code": {
+      "title": "lang.code",
+      "icon": "images/home_page.svg",
+      "sort": {
+        "after": "leads"
+      }
+    }
+  },
   "settings": {
     "json": {
       "name": "settings.json",

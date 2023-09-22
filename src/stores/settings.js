@@ -71,9 +71,6 @@ export const useSettingsStore = defineStore('settings', () => {
         }
     }
 
-    onMounted(async () => {
-        await getSettings()
-    })
 
     return {
         settings,

@@ -11,7 +11,7 @@ window.Host = "https://widgets-api.dicitech.com/api/";
 const Widget = {
     init: async (_amocrm, self,$) => await handleInit(self, $),
     render: async (_amocrm,self, $) => {
-        await handleRender(self, $)
+        await handleRender(_amocrm,self, $)
         return true
     },
     bind_actions: async (_amocrm,self, $) => await handleEvents(self, $),

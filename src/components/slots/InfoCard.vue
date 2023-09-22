@@ -64,7 +64,7 @@ const classObj = computed(() => ({
     !props.value,
   "px-10 py-8  min-h-[110px]": !props.isLicensed,
   "mt-6": !props.isLicensed && !props.isFirst,
-  "px-6 py-2 text-[13px]": props.isLicensed,
+  "px-[18px] py-2 text-[13px]": props.isLicensed,
   "mt-0": props.isFirst,
 }));
 
