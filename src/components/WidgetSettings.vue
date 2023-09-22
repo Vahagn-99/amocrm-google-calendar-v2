@@ -1,6 +1,6 @@
 <template>
   <section class="dark:bg-gray-900 antialiased">
-    <div class="mx-auto">
+    <div class="mx-auto" v-if="!showDrawer">
       <div
           class="w-full md:w-auto flex my-4 flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0"
       >
