@@ -1,5 +1,4 @@
-import {mountComponent} from "../helpers/mounter";
-import Button from "../render/Button.vue";
+import { mountComponent } from "../helpers/mounter";
 import Calendar from "../calendar/Calendar.vue";
 
 /**
@@ -13,10 +12,8 @@ import Calendar from "../calendar/Calendar.vue";
 *     subitem_code: 'custom_sub_item_3' // ключ подпункта, который был указан в manifest.json
 * }
 */
-export async function handleLeftMenu(params,$) {
-    if(window.APP.data.current_entity==="widget_page"){
-        const contextMenu=$('#work_area');
-        mountComponent('calendar-main',Calendar,contextMenu,'widget_page',true)
-    }
+export async function handleLeftMenu(params, $) {
+    const contextMenu = $('#work_area');
+    mountComponent('calendar-main', Calendar, contextMenu, 'widget_page', true)
     return true;
 }
