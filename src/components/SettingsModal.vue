@@ -339,7 +339,7 @@
               </button>
             </div>
           </div>
-          <div v-if="openTab" class="w-full h-full"> Desc 2</div>
+          <div v-if="openTab" class="w-full h-screen"> Desc 2</div>
         </div>
       </div>
     </div>

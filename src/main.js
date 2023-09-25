@@ -19,8 +19,6 @@ const Widget = {
     settings: async (appElement, self, $) => await handleSettings(appElement, self, $),
     advancedSettings: async (appElement, self, $) => await handlePanel(appElement, self, $),
     destroy: async (self, $) => true,
-    onSave: async (self, $) => await async(window.APP),
-    initMenuPage: _bind(async (params) => await handleLeftMenu(params,$)
-    )
+    onSave: async (self, $) => await async(window.APP)
 }
 export default Widget;
