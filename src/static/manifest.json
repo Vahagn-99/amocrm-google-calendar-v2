@@ -3,7 +3,7 @@
     "name": "widget.name",
     "description": "widget.description",
     "short_description": "widget.short_description",
-    "version": "7.5.6",
+    "version": "7.6.7",
     "interface_version": 2,
     "init_once": false,
     "locale": [
@@ -27,7 +27,7 @@
     "widget_page"
   ],
   "left_menu": {
-    "realty_widget_code": {
+    "calendar": {
       "title": "lang.code",
       "icon": "images/home_page.svg",
       "sort": {

@@ -1,4 +1,8 @@
-define(['./app.js?cache=' + Date.now(),'jquery'], function (App,$) {
+define([
+    './app.js?cache=' + Date.now()
+    , 'jquery'
+    , 'underscore'
+], function (App, $) {
 
     const Widget = function () {
         const self = this;
@@ -10,7 +14,7 @@ define(['./app.js?cache=' + Date.now(),'jquery'], function (App,$) {
         this.callbacks = {
             async render() {
                 try {
-                    await App.default.render(_amocrm, self,$);
+                    await App.default.render(_amocrm, self, $);
                     return true
                 } catch (error) {
                     throw error
@@ -62,6 +66,7 @@ define(['./app.js?cache=' + Date.now(),'jquery'], function (App,$) {
                     throw error
                 }
             },
+            initMenuPage: _.bind(params => App.default.initMenuPage(_amocrm, params, self,$)),
             contacts: {
                 async selected() {
                     try {
