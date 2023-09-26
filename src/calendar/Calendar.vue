@@ -25,7 +25,7 @@ import esLocale from '@fullcalendar/core/locales/es';
 
 import {INITIAL_EVENTS, createEventId} from '../stores/events'
 import {onMounted, reactive, ref} from "vue";
-import {useEventsStore} from "../stores/calendar";
+import {useEventsStore} from "../stores/events";
 
 let currentEvents = []
 const eventsStore=useEventsStore()

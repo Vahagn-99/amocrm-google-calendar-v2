@@ -2,7 +2,7 @@
   <div class="max-w-2xl p-4 mx-auto">
     <div
         id="drawer-example"
-        class="dct-drawer dct-drawer-fixed z-40 h-screen p-0 overflow-y-auto bg-slate-50 w-[50%] dct-modal"
+        class="dct-drawer dct-drawer-fixed z-40 h-screen p-0 overflow-y-auto bg-slate-50 w-[55%] dct-modal"
         tabindex="-1"
         aria-labelledby="drawer-label"
     >
@@ -29,14 +29,14 @@
         <span class="sr-only">Close menu</span>
       </button>
       <div class="flex items-start h-full">
-        <div class="mt-6 sticky top-[30px] ">
-          <div @click="changeTab1" :class="!openTab?'dct-active-tab':''" class="dct-drawer-tab"><p>Настройки статуса и событий</p> </div>
-          <div @click="changeTab2" :class="openTab?'dct-active-tab':''" class="dct-drawer-tab"><p>Настройка календарей </p></div>
+        <div class="mt-6 sticky top-[30px] px-[12px]">
+          <div @click="changeTab1" :class="!openTab?'dct-active-tab':''" class="dct-drawer-tab"><p>Настройки статуса и событий &nbsp;&nbsp;&nbsp;&nbsp;</p> </div>
+          <div @click="changeTab2" :class="openTab?'dct-active-tab':''" class="dct-drawer-tab"><p>Настройка календарей &nbsp;&nbsp;&nbsp;&nbsp;</p></div>
         </div>
         <div class="dct-drawer-main-section w-full h-fit">
           <div v-if="!openTab" class="grid grid-cols-1 gap-4 w-full h-full">
             <div
-                class="w-full border border-gray-200 rounded-lg sm:p-4 dark:bg-gray-800 dark:border-gray-700"
+                class="w-full border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700"
             >
               <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
                 Настройки статуса и событий
@@ -85,7 +85,7 @@
                 </template>
               </Select>
               <div class="w-full" v-if="settings.services.length > 0">
-                <ul class="p-0 space-y-1 text-gray-500 list-none">
+                <ul class="p-0 space-y-1 text-gray-500 list-none mt-2">
                   <template
                       v-for="(service, index) in settings.services"
                       :key="index"
@@ -166,7 +166,7 @@
             </div>
             <!-- card 2 -->
             <div
-                class="w-full border border-gray-200 rounded-lg sm:p-4 dark:bg-gray-800 dark:border-gray-700"
+                class="w-full border border-gray-200 rounded-lg  dark:bg-gray-800 dark:border-gray-700"
             >
               <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white flex">
                 Настройки дата и время
@@ -311,7 +311,7 @@
               <div class="pt-3" v-if="isOpenTemplate">
                 <div class="h-[300px] overflow-y-auto custom-scroll">
                   <ul class="dct-ul mt-0 pl-0">
-                    <template v-for="(marker, key) in markers" :key="key">
+                    <template v-for="(marker, key) in selectStore.markers" :key="key">
                       <ShablonItem
                           @copy:value="copyMarker"
                           :marker="marker"
@@ -339,7 +339,9 @@
               </button>
             </div>
           </div>
-          <div v-if="openTab" class="w-full h-screen"> Desc 2</div>
+          <div v-if="openTab" class="w-full h-screen ml-0" style="margin-left:0px!important">
+              <CalendarSettings/>
+          </div>
         </div>
       </div>
     </div>
@@ -358,6 +360,7 @@ import Input from "./inputs/Input.vue";
 import ShablonItem from "./ShablonItem.vue";
 import Popover from "./Popover.vue";
 import {storeToRefs} from "pinia";
+import CalendarSettings from "./CalendarSettings.vue";
 
 const settingsStore=useSettingsStore()
 const selectStore=useSelectStore()
@@ -465,6 +468,8 @@ function addService() {
 }
 
 function checkCanAddNewItem() {
+  console.log('---------')
+  console.log(services,123)
   if (services.value.length <= settings.value.services.length) {
     canAddNewItem.value = false;
   } else {
@@ -498,10 +503,6 @@ watch(usePcker, (newValue) => {
 });
 
 onMounted(async () => {
-  console.log(settings.value,settings.value.id)
-  await settingsStore.getSettings(settings.value.id)
-  console.log(settings.value)
-
   const $targetEl = document.getElementById("drawer-example");
   const options = {
     placement: "right",
@@ -516,11 +517,17 @@ onMounted(async () => {
     onToggle: () => {},
   };
 
+
+  const id=settings.value.id
+  await settingsStore.getSettings(id)
+  await selectStore.getCalendars(id);
+  await selectStore.getSelects();
+  await selectStore.getMarkers();
+  services.value = getServices(settings.value.services_parent_id);
   if ($targetEl) {
     drawerInstance.value = new Drawer($targetEl, options); // Assign the drawer instance to the ref
     // Show the drawer initially
     drawerInstance.value.show();
   }
-  services.value = getServices(settings.value.services_parent_id);
 });
 </script>

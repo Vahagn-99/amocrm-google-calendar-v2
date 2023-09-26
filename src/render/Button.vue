@@ -9,7 +9,7 @@
 import {onMounted} from "vue";
 import {mountComponent} from "../helpers/mounter";
 import CalendarModal from "./Modal.vue";
-import {useEventsStore} from "../stores/calendar";
+import {useEventsStore} from "../stores/events";
 const eventsStore=useEventsStore()
 
 function openModal(){

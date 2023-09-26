@@ -1,26 +1,26 @@
+import {onMounted, ref} from 'vue';
+import { defineStore } from 'pinia';
+import apiClient from '../../apiClient';
+import { useSubdomainStore } from './subdomain';
 
-let eventGuid = 0
-let todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
-console.log(todayStr)
+export const useEventsStore = defineStore('events', () => {
+    //stores
+    const subdomainStore = useSubdomainStore();
+    //state
+    const events = ref([]);
 
-export const INITIAL_EVENTS = [
-    {
-        id: createEventId(),
-        title: 'Вам нужно позвонить.',
-        start: '2023-09-18',
-    },
-    {
-        id: createEventId(),
-        title: 'Вам нужно позвонить.',
-        start: '2023-09-20',
-    },
-    {
-        id: createEventId(),
-        title: 'Вам нужно позвонить.',
-        start: '2023-09-21',
+    const getEvents = async () => {
+        const resposne = await apiClient.get(`calendar/v2/accounts/224/events`);
+        console.log(resposne.data.data)
+        events.value = resposne.data.data
     }
-]
 
-export function createEventId() {
-    return String(eventGuid++)
-}
+    onMounted(async () => {
+        await getEvents()
+    })
+
+    return {
+        getEvents,
+        events
+    };
+})

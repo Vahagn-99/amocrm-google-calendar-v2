@@ -24,12 +24,12 @@ export const useSelectStore = defineStore('select', () => {
         const resposne = await apiClient.get(`subdomains/${subdomainStore.subdomainId}/statuses`, { byWidgetId: true });
         statuses.value = resposne.data.data
     };
-    const getCalendars = async () => {
+    const getCalendars = async (googleAccountId) => {
         const resposne = await apiClient.get(`calendar/v1/account/${googleAccountId}/calendars`);
         calendars.value = resposne.data.data
     };
     const getFields = async () => {
-        const resposne = await apiClient.get(`subdomains/${subdomainStore.subdomainId}/fields-with-key`, { byWidgetId: true });
+        const resposne = await apiClient.get(`subdomains/${subdomainStore.subdomainId}/fields`, { byWidgetId: true });
         fields.value = resposne.data.data
     };
     const getSelects = async () => {
@@ -48,5 +48,11 @@ export const useSelectStore = defineStore('select', () => {
         , getSelects
         , getMarkers
         , getCountries
+        , fields
+        , markers
+        , countries
+        , statuses
+        , selects
+        , calendars
     };
 })

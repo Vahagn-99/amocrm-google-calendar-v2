@@ -210,5 +210,8 @@ onMounted(async () => {
   await selectStore.getFields();
   await selectStore.getStatuses();
   await selectStore.getSelects();
+  await selectStore.getMarkers();
+
+
 });
 </script>

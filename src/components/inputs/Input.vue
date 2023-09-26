@@ -42,7 +42,7 @@ const props = defineProps({
   },
   label: {
     type: [String, Boolean],
-    default: true,
+    default: false,
   },
   name: {
     type: String,

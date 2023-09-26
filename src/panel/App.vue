@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen relative">
-    <nav class="dct-nav bg-white border-gray-200 dark:bg-gray-900">
+    <nav class="dct-nav">
       <div class="px-6 py-3 mx-auto mb-4">
         <div class="flex items-center justify-between">
           <ul

@@ -726,6 +726,10 @@ top:0}
   position: fixed;
 }
 
+.dct-drawer{
+  top:0;
+  right: 0;
+}
 
 .dct-check-list{
   min-height: 65px;
@@ -894,6 +898,12 @@ align-items: center;
   border-bottom: 8px solid #f5f5f5;
 }
 
+.dct-border-b{
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #c0c0c0;
+}
+
 .dct-doubles-border-hb{
   border-bottom: 1px solid #c1bdbd;
   color: #000;
@@ -992,8 +1002,19 @@ color:#363b44
 
 .dct-active-tab p{
   color:#fff!important;
+  font-weight: 900;
 }
 
+.dct-active-tab p::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 8px;
+  height: 60%;
+  width: 4px;
+  background-color: #fff;
+}
 
 .dct-drawer-tab p{
   width: max-content;
