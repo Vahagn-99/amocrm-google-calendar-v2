@@ -12,8 +12,9 @@ import Calendar from "../calendar/Calendar.vue";
 *     subitem_code: 'custom_sub_item_3' // ключ подпункта, который был указан в manifest.json
 * }
 */
-export async function handleLeftMenu(params, $) {
-    const contextMenu = $('#work_area');
-    mountComponent('calendar-main', Calendar, contextMenu, 'widget_page', true)
-    return true;
+export async function handleLeftMenu(_amocrm, params, self, $) {
+    if (params.location === 'widget_page') {
+        const contextMenu = $('#work-area-dct_telegram_chat');
+        mountComponent('calendar-main', Calendar, contextMenu, 'widget-page', true)
+    }
 }
