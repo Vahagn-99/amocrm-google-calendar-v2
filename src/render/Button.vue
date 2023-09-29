@@ -10,8 +10,9 @@ import {onMounted} from "vue";
 import {mountComponent} from "../helpers/mounter";
 import CalendarModal from "./Modal.vue";
 import {useEventsStore} from "../stores/events";
+import {useAccountStore} from "../stores/account";
 const eventsStore=useEventsStore()
-
+const accountStore=useAccountStore()
 function openModal(){
   document.getElementById("dct_calendar_modal").classList.remove("hidden");
   let event = new Event('resize');
@@ -22,8 +23,7 @@ function openModal(){
 }
 
 onMounted(async () => {
-  await eventsStore.getEvents()
-
+  await accountStore.getAccounts()
   await mountComponent("calendar-modal", CalendarModal, "body", "leads", true);
 });
 </script>

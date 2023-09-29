@@ -8,19 +8,23 @@ export const useEventsStore = defineStore('events', () => {
     const subdomainStore = useSubdomainStore();
     //state
     const events = ref([]);
+    const colors=ref([]);
 
-    const getEvents = async () => {
-        const resposne = await apiClient.get(`calendar/v2/accounts/224/events`);
-        console.log(resposne.data.data)
+    const getEvents = async (account_id) => {
+        const resposne = await apiClient.get(`calendar/v2/accounts/${account_id}/events`);
         events.value = resposne.data.data
     }
 
-    onMounted(async () => {
-        await getEvents()
-    })
+    const getColors = async (account_id) => {
+        const resposne = await apiClient.get(`calendar/v2/accounts/${account_id}/calendars/colors`);
+        colors.value = resposne.data.data
+    }
+
 
     return {
+        events,
+        colors,
         getEvents,
-        events
+        getColors,
     };
 })

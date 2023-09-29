@@ -86,6 +86,7 @@
                     v-model="currentCountryCode"
                     placeholder="Номер телефона"
                     :pattern="[currentCountryMask]"
+                    :v2="false"
                   />
                   <div class="flag-dropdown" @click="toggleCountryList">
                     <div class="flex items-center pr-[5px]">

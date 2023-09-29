@@ -17,14 +17,18 @@ export const useCalendarSettingsStore = defineStore('calendar_settings', () => {
 
     const saveCalendar = async (account_id, calendar) => {
         const resposne = await apiClient.post(`calendar/v2/accounts/${account_id}/calendars/${calendar.id}`,calendar);
-        console.log(resposne.data.data)
-        calendars.value = resposne.data.data
+        await getCalendars(account_id)
+    }
+
+    const deleteCalendar = async (account_id, calendar) => {
+        await apiClient.delete(`calendar/v2/accounts/${account_id}/calendars/${calendar.id}`);
     }
 
 
     return {
         getCalendars,
         saveCalendar,
-        calendars
+        deleteCalendar,
+        calendars,
     };
 })

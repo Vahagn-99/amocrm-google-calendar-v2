@@ -4,7 +4,7 @@
       id="dct_calendar_modal"
   >
     <div class="modal-scroller custom-scroll">
-      <div class="modal-body modal-body-relative block w-[80%] h-[95%] my-[10px]">
+      <div class="modal-body modal-body-relative overflow-auto block w-[80%] h-[95%] my-[10px] p-[23px] custom-scroll">
         <div class="modal-body__inner">
           <div class="add-group">
             <div class="add-group__header">
@@ -35,10 +35,6 @@
 <script setup>
 import { useSettingsStore } from "../stores/settings";
 import Calendar from "../calendar/Calendar.vue";
-
-const settingsStore = useSettingsStore();
-
-
 
 function closeModal() {
   document.getElementById("dct_calendar_modal").classList.add("hidden");

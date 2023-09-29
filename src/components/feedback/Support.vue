@@ -93,7 +93,7 @@
               >
               <textarea
                 rows="4"
-                class="p-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                class="dct-textarea-v2 p-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-0 dark:text-white dark:placeholder-gray-400"
                 required
               ></textarea>
             </div>
@@ -105,7 +105,7 @@
           <button
             @click="handleSave"
             type="button"
-            class="w-full text-white bg-[#4285F4] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            class="w-full text-white bg-[#4285F4] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#2589ff] dark:hover:bg-[#2589ff] dark:focus:ring-blue-800"
           >
             Отправить
           </button>
@@ -173,7 +173,7 @@
           <button
             @click="handleSave2"
             type="button"
-            class="w-full text-white bg-[#4285F4] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            class="w-full text-white bg-[#4285F4] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#2589ff] dark:hover:bg-[#2589ff] dark:focus:ring-blue-800"
           >
             Отправить
           </button>

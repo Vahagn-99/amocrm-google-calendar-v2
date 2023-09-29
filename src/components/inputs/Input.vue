@@ -20,8 +20,10 @@
       :placeholder="placeholder"
       v-maska
       :data-maska="pattern"
-      class="dct-input bg-gray-50 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      class="dct-input-v2 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
       :class="{
+        'dct-input-v2':v2,
+        'dct-input':!v2,
         'text-gray-100 border-gray-100': disabled,
         'text-gray-900 border-gray-300': !disabled,
       }"
@@ -36,6 +38,10 @@ import { vMaska } from "maska";
 import Popover from "../Popover.vue";
 
 const props = defineProps({
+  v2:{
+    type:Boolean,
+    default:true
+  },
   popover: {
     type: [String, Boolean],
     default: false,
