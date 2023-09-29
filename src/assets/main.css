@@ -976,7 +976,7 @@ color:#363b44
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: calc(100% - 14.5px);
+  width: calc(100% - 12.5px);
 }
 
 #dct_calendar_modal .fc-scrollgrid-sync-table{
@@ -987,8 +987,8 @@ color:#363b44
 
 
 #dct_calendar_modal .fc-view-harness.fc-view-harness-active{
-  min-height: 500px;
-  max-height: 500px;
+  min-height: 800px;
+  max-height: 800px;
   /*min-width: 100%;*/
 }
 
@@ -997,7 +997,12 @@ color:#363b44
 /*}*/
 
 #dct_calendar_modal .fc button{
-  height: auto;
+  height: 33px;
+  margin: 0 1px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #dct_calendar_modal .fc-daygrid-dot-event.fc-event-mirror,#dct_calendar_modal .fc-daygrid-dot-event:hover,#dct_calendar_modal .fc-event:hover{
@@ -1119,7 +1124,7 @@ color:#363b44
   color:#2589ff!important;
 }
 
-.fc-event::after{
+.fc-event:not(.fc-list-event)::after{
   content: "";
   position: absolute;
   top: 50%;
@@ -1130,18 +1135,62 @@ color:#363b44
   background-color: #2589ff;
 }
 
-.fc-event{
+.fc-event:not(.fc-list-event){
   background:#ecf6ff!important;
   padding-left: 10px!important;
-  color: #2589ff!important;
+  color: #363b44!important;
   border-color:#ecf6ff!important;
 }
 
+.fc-list-event{
+  color: #363b44!important;
+  background:#fff!important;
+  width: 100%;
+  border-color: #f5f5f5;
+}
+
+.fc-list-event-title{
+  width: 100%;
+}
 .fc-icon-x:after{
   font-size: 100%;
 }
 
-.fc-button:focus{
-  border:none;
-  outline:none;
+.fc .fc-button:focus{
+  box-shadow: none!important;
+}
+
+.fc-day.fc-day-today{
+  background: #f5f5f5!important;
+}
+
+.fc table{
+  table-layout: auto;
+}
+/* Style the entire table with one border */
+.fc-list-table {
+  border-collapse: collapse; /* Collapse the table borders into one */
+}
+
+/* Style the table headers */
+.fc-list-table th {
+  border-bottom: 1px solid #f5f5f5; /* Set the border for table rows */
+}
+
+/* Style the table rows */
+.fc-list-table tbody tr {
+  border-bottom: 1px solid #f5f5f5; /* Set the border for table rows */
+}
+
+/* Style the table cells */
+.fc-list-table td {
+  border: none; /* Set the border for table cells */
+}
+
+.fc-v-event .fc-event-main{
+  color: #363b44!important;
+}
+
+.fc-popover.fc-more-popover{
+  width: 450px;
 }

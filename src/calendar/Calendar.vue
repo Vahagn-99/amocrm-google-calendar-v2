@@ -2,30 +2,16 @@
   <div class='demo-app'>
     <div class='demo-app-main'>
       <div class="flex justify-start items-center gap-2 my-2">
-        <div class="fc">
-          <div class="fc-button-group">
-            <button type="button" title="Пред" @click="prevAccount" aria-pressed="false"
-                    class="max-w-[54px] fc-prev-button fc-button fc-button-primary">
-              <span class="fc-icon fc-icon-chevron-left"></span></button>
-            <div class="bg-[#f5f5f5] text-center px-8 flex items-center">
-              {{ accounts[currentAccountIndex].name }}
-            </div>
-            <button type="button" @click="nextAccount" title="След" aria-pressed="false"
-                    class="max-w-[54px] fc-next-button fc-button fc-button-primary">
-              <span class="fc-icon fc-icon-chevron-right"></span>
-            </button>
-          </div>
-        </div>
         <div>
           <div @click="openList"
-               class="dct-select-v2 text-center px-2 flex gap-4 items-center justify-between h-[37px] min-w-[200px]">
+               class="dct-calendars-select dct-select-v2 text-center px-2 flex gap-4 items-center justify-between h-[33px] min-w-[200px]">
       <span class="block">
         {{ checkedCalendars.length }} календарей
       </span>
             <span class="fc-icon fc-icon-chevron-right"
                   :class="isOpen?' dct-transform-up':' dct-transform-down'"></span>
           </div>
-          <ul class="dct-calendars-select flex gap-3 p-4 mt-[3px] border-[#efefef] flex-col bg-[#f5f5f5] absolute z-50 border border-solid"
+          <ul class=" flex gap-3 p-4 mt-[3px] border-[#efefef] flex-col bg-[#f5f5f5] absolute z-50 border border-solid"
               v-if="isOpen">
             <li v-for="(calendar, key) in calendarStore.calendars" :key="key">
               <label class="flex gap-1">
@@ -34,6 +20,22 @@
               </label>
             </li>
           </ul>
+        </div>
+        <div class="absolute top-[23px] right-[23px]"  v-if="accounts.length>1">
+          <div class="fc">
+            <div class="fc-button-group h-[28px]">
+              <button type="button" title="Пред" @click="prevAccount" aria-pressed="false"
+                      class="max-w-[54px] fc-prev-button fc-button fc-button-primary" style="height: 28px">
+                <span class="fc-icon fc-icon-chevron-left"></span></button>
+              <div class="bg-[#f5f5f5] text-center px-8 flex items-center">
+                {{ accounts[currentAccountIndex].name }}
+              </div>
+              <button type="button" @click="nextAccount" title="След" aria-pressed="false"
+                      class="max-w-[54px] fc-next-button fc-button fc-button-primary" style="height: 28px">
+                <span class="fc-icon fc-icon-chevron-right"></span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       <FullCalendar
@@ -106,7 +108,7 @@ const calendarOptions = reactive({
 
   ],
   headerToolbar: {
-    left: 'prev,next today',
+    left: 'prev,next,today',
     center: 'title',
     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
   },
@@ -191,11 +193,13 @@ onMounted(async () => {
   await changeAccount();
   checkedCalendars.value=calendarStore.calendars.map(calendar => calendar.id)
 
-  const targetElement = document.querySelector('.  dct-calendars-select');
 
   // Function to handle the click event
   function handleClickOutside(event) {
-    // Check if the clicked element is not the target element or its descendants
+    const targetElement = document.querySelector('.dct-calendars-select');
+    const elemrnt = document.querySelector('.dct-calendars-select');
+
+    console.log(targetElement)
     if (!targetElement.contains(event.target)&&isOpen.value) {
       console.log('Clicked outside the target element');
       isOpen.value=false
