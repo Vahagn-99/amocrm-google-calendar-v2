@@ -3,11 +3,7 @@
     "name": "widget.name",
     "description": "widget.description",
     "short_description": "widget.short_description",
-<<<<<<< HEAD
     "version": "12.7.6",
-=======
-    "version": "12.8.0",
->>>>>>> 697dd1b390a29874706807ce055b45fddb38fcd5
     "interface_version": 2,
     "init_once": false,
     "locale": [
