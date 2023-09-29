@@ -979,24 +979,24 @@ color:#363b44
   width: calc(100% - 12.5px);
 }
 
-#dct_calendar_modal .fc-scrollgrid-sync-table{
+ .fc-scrollgrid-sync-table{
   /*min-height: 490px;*/
   /*max-height: 490px;*/
   /*min-width: 1297px;*/
 }
 
 
-#dct_calendar_modal .fc-view-harness.fc-view-harness-active{
+ .fc-view-harness.fc-view-harness-active{
   min-height: 800px;
   max-height: 800px;
   /*min-width: 100%;*/
 }
 
-/*#dct_calendar_modal .fc-col-header {*/
+/* .fc-col-header {*/
 /*  min-width: 100%;*/
 /*}*/
 
-#dct_calendar_modal .fc button{
+ .fc button{
   height: 33px;
   margin: 0 1px;
   border-radius: 2px;
@@ -1005,11 +1005,11 @@ color:#363b44
   justify-content: center;
 }
 
-#dct_calendar_modal .fc-daygrid-dot-event.fc-event-mirror,#dct_calendar_modal .fc-daygrid-dot-event:hover,#dct_calendar_modal .fc-event:hover{
+ .fc-daygrid-dot-event.fc-event-mirror, .fc-daygrid-dot-event:hover, .fc-event:hover{
   background: #ecf6ff!important;
 }
 
-#dct_calendar_modal .fc-event{
+ .fc-event{
   overflow: hidden;
 }
 

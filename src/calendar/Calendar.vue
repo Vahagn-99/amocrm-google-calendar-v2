@@ -121,11 +121,18 @@ const calendarOptions = reactive({
   dayMaxEvents: true,
   weekends: true,
   // select: handleDateSelect,
-  // eventClick: handleEventClick,
+  eventClick: handleEventClick,
   // eventsSet: handleEvents,
   locales: [ruLocale, esLocale],
   locale: ruLocale
 });
+
+const handleEventClick = (clickInfo) => {
+  if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    clickInfo.event.remove()
+  }
+}
+
 
 function openList() {
   isOpen.value = !isOpen.value
