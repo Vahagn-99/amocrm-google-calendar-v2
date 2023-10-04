@@ -1,5 +1,7 @@
 import { mountComponent } from "../helpers/mounter";
 import Calendar from "../calendar/Calendar.vue";
+import {useAccountStore} from "../stores/account";
+import RightModal from "../render/RightModal.vue";
 
 /**
 * Метод срабатывает, когда пользователь переходит на кастомную страницу виджета.
@@ -15,7 +17,8 @@ import Calendar from "../calendar/Calendar.vue";
 export async function handleLeftMenu(_amocrm, params, self, $) {
     if (params.location === 'widget_page') {
         const contextMenu = $('#work-area-dct_telegram_chat');
-        $('#work-area-dct_telegram_chat').addClass('bg-white')
-        mountComponent('calendar-main', Calendar, contextMenu, 'widget-page', true)
+        $('#work-area-dct_telegram_chat').closest('#work_area').addClass('bg-white')
+        mountComponent('calendar-main', Calendar, contextMenu, 'widget-page', true,true)
+        mountComponent("calendar-right-modal", RightModal, "body", "widget-page", true);
     }
 }

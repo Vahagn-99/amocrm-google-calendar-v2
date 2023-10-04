@@ -1,6 +1,8 @@
 import { createApp } from "vue";
 import pinia from "../stores/pinia";
 import Notifications from '@kyvg/vue3-notification'
+import {useAccountStore} from "../stores/account";
+import RightModal from "../render/RightModal.vue";
 
 /**
  * Asynchronously mounts a Vue component.
@@ -11,7 +13,7 @@ import Notifications from '@kyvg/vue3-notification'
  * @param {Function} callback - Function to be called before mounting
  * @returns {Object|null} - Returns the Vue app instance or null
  */
-export async function mountComponent(id, component, holder, entityIs, append) {
+export async function mountComponent(id, component, holder, entityIs, append,isCalendar=false) {
     // Append the account ID to the component's ID for uniqueness
     const accountId = window.APP.constant('account').id;
     const uniqueId = `${id}-${accountId}`;
@@ -51,6 +53,11 @@ export async function mountComponent(id, component, holder, entityIs, append) {
     // Create and mount a Vue app with your widget to the container
     const app = createApp(component);
     app.use(pinia)
+    if(isCalendar){
+        console.log(123)
+        const accountStore=useAccountStore()
+        await accountStore.getAccounts()
+    }
     app.use(Notifications)
     app.mount(el);
     console.log(app)

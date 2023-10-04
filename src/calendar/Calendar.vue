@@ -248,10 +248,7 @@ function getEvents() {
 }
 
 onMounted(async () => {
-  if(window.APP.data.current_entity==="widget_page"){
-    await accountStore.getAccounts()
-    await mountComponent("calendar-right-modal", RightModal, "body", "leads", true);
-  }
+
 
   await changeAccount();
   checkedCalendars.value = calendarStore.calendars.map(calendar => calendar.id)

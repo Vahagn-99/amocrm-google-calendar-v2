@@ -1271,3 +1271,7 @@ color:#363b44
 .dct-calendars-select label{
   cursor:pointer;
 }
+
+.fc-h-event .fc-event-main{
+  color:#363b44;
+}
