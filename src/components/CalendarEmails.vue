@@ -4,9 +4,9 @@
       <div class="flex">
         <label
             for="description"
-            class="dct-label block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+            class="dct-label block mb-1 text-sm  text-gray-900 dark:text-white"
         >
-          Электронная почта
+          Пользователи , имеющие доступ к календарю (e-mail)
         </label>
       </div>
       <div

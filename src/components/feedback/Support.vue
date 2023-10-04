@@ -105,7 +105,7 @@
           <button
             @click="handleSave"
             type="button"
-            class="w-full text-white bg-[#4285F4] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#2589ff] dark:hover:bg-[#2589ff] dark:focus:ring-blue-800"
+            class="w-full text-white bg-[#4285F4] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#2a7cef] dark:hover:bg-[#2a7cef] dark:focus:ring-blue-800"
           >
             Отправить
           </button>
@@ -173,7 +173,7 @@
           <button
             @click="handleSave2"
             type="button"
-            class="w-full text-white bg-[#4285F4] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#2589ff] dark:hover:bg-[#2589ff] dark:focus:ring-blue-800"
+            class="w-full text-white bg-[#4285F4] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#2a7cef] dark:hover:bg-[#2a7cef] dark:focus:ring-blue-800"
           >
             Отправить
           </button>

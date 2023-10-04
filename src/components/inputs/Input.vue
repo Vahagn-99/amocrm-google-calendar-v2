@@ -1,10 +1,10 @@
 <template>
-  <div class="w-[100%]">
+  <div class="w-[100%] mt-2.5">
     <div class="flex">
       <label
         v-if="label"
         :for="name"
-        class="dct-label mb-1 text-sm font-medium text-gray-900 dark:text-white"
+        class="dct-label mb-1 text-sm text-gray-900 dark:text-white"
         >{{ label }}
       </label>
       <popover v-if="popover" :context="popover" />

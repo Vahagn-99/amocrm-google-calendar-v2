@@ -89,7 +89,7 @@
                     :v2="false"
                   />
                   <div class="flag-dropdown" @click="toggleCountryList">
-                    <div class="flex items-center pr-[5px]">
+                    <div class="flex items-center pr-[5px] h-[22px]">
                       <div class="selected-flag" title="Russia (Россия): +7">
                         <div class="flag" :class="currentCountryFlag">
                           <div class="arrow"></div>

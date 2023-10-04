@@ -11,6 +11,7 @@ import {mountComponent} from "../helpers/mounter";
 import CalendarModal from "./Modal.vue";
 import {useEventsStore} from "../stores/events";
 import {useAccountStore} from "../stores/account";
+import RightModal from "./RightModal.vue";
 const eventsStore=useEventsStore()
 const accountStore=useAccountStore()
 function openModal(){
@@ -25,5 +26,6 @@ function openModal(){
 onMounted(async () => {
   await accountStore.getAccounts()
   await mountComponent("calendar-modal", CalendarModal, "body", "leads", true);
+  await mountComponent("calendar-right-modal", RightModal, "body", "leads", true);
 });
 </script>

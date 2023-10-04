@@ -1,34 +1,6 @@
 <template>
   <section class="dark:bg-gray-900 antialiased">
     <div class="mx-auto" v-if="!showDrawer">
-      <div
-          class="w-full md:w-auto flex my-4 flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0"
-      >
-        <button
-            @click="handleGoogleAuth"
-            type="button"
-            id="createProductButton"
-            data-modal-toggle="createProductModal"
-            class="dct-button dct-google-button flex items-center justify-center text-white bg-[#2589ff] hover:bg-[#5c8bf9] focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
-        >
-          <svg
-              class="w-4 h-4 mr-2 -ml-1"
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fab"
-              data-icon="google"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 488 512"
-          >
-            <path
-                fill="currentColor"
-                d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
-            ></path>
-          </svg>
-          Добавить Google аккаунт
-        </button>
-      </div>
 
       <div class="dct-overflow-hidden ml-6 px-4 dct-card">
         <div class="overflow-x-auto">
@@ -56,7 +28,7 @@
             <tbody>
             <tr
                 v-if="accounts.length === 0"
-                class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                class="border-b dark:border-gray-600 hover:bg-gray-[#ecf6ff] dark:hover:bg-gray-700"
             >
               <th
                   class="dct-empty-table px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -67,7 +39,7 @@
             <tr
                 v-for="(account, key) in accounts"
                 :key="key"
-                class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                class="border-b dark:border-gray-600 hover:bg-gray-[#ecf6ff] dark:hover:bg-gray-700"
             >
               <td
                   scope="row"
@@ -75,20 +47,18 @@
               >
                 <div class="flex items-center mr-3">{{ key + 1 }}</div>
               </td>
-              <td
-                  scope="row"
-                  class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                <div class="flex items-center mr-3">Календарь событий {{ key + 1 }}</div>
+              <td scope="row"
+                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <AccountItem :account="account" :g-key="key"/>
               </td>
               <td
                   class="flex justify-end px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white space-x-4"
               >
                 <button
-                    @click="showSettings(account)"
+                    @click="showSettings(account.id)"
                     :disabled="isLoadingId === account.id"
                     type="button"
-                    class="dct-button text-white bg-[#2589ff] hover:bg-[#5c8bf9] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-[#2589ff] dark:hover:bg-[#2589ff] dark:focus:ring-blue-800 inline-flex items-center"
+                    class="dct-button text-white bg-[#2a7cef] hover:bg-[#5c8bf9] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 dark:bg-[#2a7cef] dark:hover:bg-[#2a7cef] dark:focus:ring-blue-800 inline-flex items-center"
                 >
                   <svg
                       v-if="isLoadingId === account.id"
@@ -130,7 +100,7 @@
                   }}
                 </button>
                 <button
-                    @click="deleteAccount(account)"
+                    @click="deleteAccount(account.id)"
                     type="button"
                     data-modal-target="delete-modal"
                     data-modal-toggle="delete-modal"
@@ -157,31 +127,63 @@
           </table>
         </div>
       </div>
+      <div
+          class="w-full md:w-auto flex my-4 flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0"
+      >
+        <button
+            @click="handleGoogleAuth"
+            type="button"
+            id="createProductButton"
+            data-modal-toggle="createProductModal"
+            class="dct-button dct-google-button flex items-center justify-center text-white bg-[#2a7cef] hover:bg-[#5c8bf9] focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+        >
+          <svg
+              class="w-4 h-4 mr-2 -ml-1"
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fab"
+              data-icon="google"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 488 512"
+          >
+            <path
+                fill="currentColor"
+                d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
+            ></path>
+          </svg>
+          Добавить Google аккаунт
+        </button>
+      </div>
+
     </div>
-    <SettingsModal v-if="showDrawer" @close-drawer="hideSettings" />
+    <SettingsModal v-if="showDrawer" @close-drawer="hideSettings" :account="currentAccount"/>
   </section>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { useSettingsStore } from "../stores/settings";
+import {onMounted, ref} from "vue";
+import {useSettingsStore} from "../stores/settings";
 import SettingsModal from "./SettingsModal.vue";
-import { storeToRefs } from "pinia";
-import { useSelectStore } from "../stores/select";
-import { useAccountStore } from "../stores/account";
+import {storeToRefs} from "pinia";
+import {useSelectStore} from "../stores/select";
+import {useAccountStore} from "../stores/account";
 import {oauthModal} from "../helpers/helpers";
 import {useSubdomainStore} from "../stores/subdomain";
+import Button from "../render/Button.vue";
+import AccountItem from "./AccountItem.vue";
 
 const settingsStore = useSettingsStore();
 const selectStore = useSelectStore();
 const accountStore = useAccountStore();
-const subdomainStore=useSubdomainStore()
+const subdomainStore = useSubdomainStore()
+const {settings} = storeToRefs(settingsStore);
+const {accounts} = storeToRefs(accountStore);
 
-const { settings } = storeToRefs(settingsStore);
-const { accounts } = storeToRefs(accountStore);
-
+const changeName = ref(false)
 const showDrawer = ref(false);
 const isLoadingId = ref(null);
+const currentAccount = ref('1');
 
 async function deleteAccount(id) {
   await accountStore.destroyAccount(id);
@@ -192,14 +194,25 @@ function hideSettings() {
   showDrawer.value = false;
 }
 
-function showSettings(item) {
-  settings.value = item;
+
+
+async function showSettings(accountId) {
+  isLoadingId.value = accountId;
+  if (selectStore.fields.length === 0) {
+    await selectStore.getFields();
+  }
+  if (selectStore.markers.length === 0) {
+    await selectStore.getMarkers();
+  }
+  await settingsStore.getSettings(accountId)
+  await selectStore.getCalendars(accountId);
+  currentAccount.value = accountId;
   showDrawer.value = true;
   isLoadingId.value = null;
 }
 
+
 function handleGoogleAuth() {
-  console.log(subdomainStore.subdomainId)
   oauthModal(`${window.Host}google-auth/${subdomainStore.subdomainId}`).then(
       async () => await accountStore.getAccounts()
   );
@@ -211,7 +224,5 @@ onMounted(async () => {
   await selectStore.getStatuses();
   await selectStore.getSelects();
   await selectStore.getMarkers();
-
-
 });
 </script>

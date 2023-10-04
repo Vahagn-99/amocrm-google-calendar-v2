@@ -25,14 +25,9 @@
     <span class="font-medium mx-2">{{ calendar.summary }}</span>
   </div>
   <div v-if="show" class="dct-calendar-item">
-    <!--    <div class="flex gap-1 justify-between">-->
-    <!--      <div  class="pl-[8px]" >-->
-    <!--        <svg v-if="calendar.id" @click='close' viewBox="0 0 32.00 32.00" class="w-[32px] h-[32px] dct-angle-circle-down"  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" transform="rotate(90)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="icomoon-ignore"> </g> <path d="M19.159 16.767l0.754-0.754-6.035-6.035-0.754 0.754 5.281 5.281-5.256 5.256 0.754 0.754 3.013-3.013z" fill="#000000"> </path> </g></svg>-->
-    <!--      </div>-->
-    <!--    </div>-->
     <div>
       <Input
-          label="Название"
+          label="Название календаря"
           name="summary"
           v-model="calendar.summary"
       />
@@ -60,13 +55,6 @@
           </svg>
           Удалить календарь
         </button>
-        <button
-            @click="saveCalendar(calendar)"
-            type="button"
-            class="dct-button px-10 text-white bg-[#2589ff] hover:bg-[#5c8bf9] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  dark:focus:ring-blue-800"
-        >
-          Сохранить
-        </button>
       </div>
     </div>
   </div>
@@ -78,6 +66,8 @@ import {useCalendarSettingsStore} from "../stores/calendar_settings";
 import {useSettingsStore} from "../stores/settings";
 import {ref} from "vue";
 import CalendarEmails from "./CalendarEmails.vue";
+import apiClient from "../../apiClient";
+import {notify} from "@kyvg/vue3-notification";
 
 const props = defineProps({
   calendar: Object,
@@ -88,21 +78,18 @@ const show = ref(props.calendar.id ? false : true)
 const calendarSettingsStore = useCalendarSettingsStore()
 const settingsStore = useSettingsStore()
 
-function deleteCalendar(key) {
-  calendarSettingsStore.calendars.splice(key, 1)
-  show.value = false
-  if (props.calendar.id) {
-    calendarSettingsStore.deleteCalendar(settingsStore.settings.google_account_id, props.calendar.id)
+async function deleteCalendar(key) {
+  try {
+    if (props.calendar.id) {
+      await calendarSettingsStore.deleteCalendar(settingsStore.settings.google_account_id, props.calendar.id)
+    }
+    calendarSettingsStore.calendars.splice(key, 1)
+    show.value = false
+  } catch (error) {
+
   }
 }
 
-
-function saveCalendar(calendar) {
-  const accout_id = settingsStore.settings.google_account_id
-  calendarSettingsStore.saveCalendar(accout_id, calendar)
-  show.value = false
-
-}
 
 function toggle() {
   show.value = !show.value

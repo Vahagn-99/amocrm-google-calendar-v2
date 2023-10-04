@@ -1,10 +1,10 @@
 <template>
-  <div class="w-[100%] mt-2">
-    <div class="flex">
+  <div class="w-[100%] mt-2.5">
+    <div class="flex mt-2">
       <label
         v-if="label"
         :for="name"
-        class="mb-1 text-sm font-medium text-gray-900 dark:text-white"
+        class="dct-label mb-1 text-sm font-medium text-gray-900 dark:text-white"
         >{{ label }}
       </label>
       <Popover v-if="popover" >
@@ -25,7 +25,7 @@
       class="dct-select-v2 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
     >
       <template v-for="(option, key) in settings.options" :key="key">
-        <option class="font-bold">
+        <option class="font-bold" disabled>
           {{ getParentLabel(option) }}
         </option>
         <option

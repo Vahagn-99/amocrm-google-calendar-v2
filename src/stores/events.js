@@ -9,10 +9,22 @@ export const useEventsStore = defineStore('events', () => {
     //state
     const events = ref([]);
     const colors=ref([]);
-
+    const currentEvent=ref({
+        title:'',
+        start:'',
+        end:'',
+        description:'',
+        calendar:'',
+        url:''
+    });
     const getEvents = async (account_id) => {
         const resposne = await apiClient.get(`calendar/v2/accounts/${account_id}/events`);
         events.value = resposne.data.data
+    }
+
+    const getEventUrl = async (account_id,event_id) => {
+        const resposne = await apiClient.get(`calendar/v2/accounts/${account_id}/events/${event_id}/lead`);
+        currentEvent.value.url=resposne.data.link
     }
 
     const getColors = async (account_id) => {
@@ -26,5 +38,7 @@ export const useEventsStore = defineStore('events', () => {
         colors,
         getEvents,
         getColors,
+        currentEvent,
+        getEventUrl
     };
 })

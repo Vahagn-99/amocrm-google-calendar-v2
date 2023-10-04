@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 window.baseUrl = 'https://widgets-api.dicitech.com/api/widgets/';
+window.url = 'https://widgets-api.dicitech.com/';
+
 const apiClient = axios.create({
     baseURL: window.baseUrl,
     byWidgetId: false, // set default to false

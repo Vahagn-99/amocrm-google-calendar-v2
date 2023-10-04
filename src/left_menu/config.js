@@ -15,6 +15,7 @@ import Calendar from "../calendar/Calendar.vue";
 export async function handleLeftMenu(_amocrm, params, self, $) {
     if (params.location === 'widget_page') {
         const contextMenu = $('#work-area-dct_telegram_chat');
+        $('#work-area-dct_telegram_chat').addClass('bg-white')
         mountComponent('calendar-main', Calendar, contextMenu, 'widget-page', true)
     }
 }

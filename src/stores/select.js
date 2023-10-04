@@ -28,7 +28,7 @@ export const useSelectStore = defineStore('select', () => {
         const resposne = await apiClient.get(`calendar/v1/account/${googleAccountId}/calendars`);
         calendars.value = resposne.data.data
     };
-    const getFields = async () => {
+    const getFields = async ()=> {
         const resposne = await apiClient.get(`subdomains/${subdomainStore.subdomainId}/fields`, { byWidgetId: true });
         fields.value = resposne.data.data
     };
@@ -36,7 +36,7 @@ export const useSelectStore = defineStore('select', () => {
         const resposne = await apiClient.get(`subdomains/${subdomainStore.subdomainId}/selects`, { byWidgetId: true });
         selects.value = resposne.data.data
     };
-    const getMarkers = async () => {
+    const getMarkers = async ()=> {
         const resposne = await apiClient.get(`subdomains/${subdomainStore.subdomainId}/markers`, { byWidgetId: true });
         markers.value = resposne.data.data
     };

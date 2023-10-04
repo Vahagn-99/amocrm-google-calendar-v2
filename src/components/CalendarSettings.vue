@@ -7,13 +7,15 @@
   <template v-for="(calendar,key) in calendarSettingsStore.calendars" :key="key">
     <CalendarItem :calendar="calendar" :g-key="key"/>
   </template>
-  <button
-      @click="addCalendar"
-      type="button"
-      class="dct-button mt-4 float-right text-white bg-[#2589ff] hover:bg-[#5c8bf9] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#2589ff] dark:hover:bg-[#2589ff] dark:focus:ring-blue-800"
-  >
+  <button type="button" @click="addCalendar"
+          class="dct-button mt-4 float-right flex justify-center items-center focus:ring-4 focus:outline-none focus:ring-blue-300 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-[#2a7cef] hover:bg-[#5c8bf9]">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+         class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
+    </svg>
     Добавить календарь
   </button>
+
 </template>
 
 <script setup>
@@ -23,17 +25,15 @@ import {onMounted} from "vue";
 import CalendarItem from "./CalendarItem.vue";
 
 const calendarSettingsStore = useCalendarSettingsStore()
-const settingsStore=useSettingsStore()
+const settingsStore = useSettingsStore()
+
 function addCalendar() {
   calendarSettingsStore.calendars.push({
-    id:'',
+    id: '',
     summary: '',
     description: '',
     acl: []
   })
 }
 
-onMounted(()=>{
-  calendarSettingsStore.getCalendars(settingsStore.settings.google_account_id)
-})
 </script>

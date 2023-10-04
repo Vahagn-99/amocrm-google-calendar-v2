@@ -11,17 +11,18 @@
             <span class="fc-icon fc-icon-chevron-right"
                   :class="isOpen?' dct-transform-up':' dct-transform-down'"></span>
           </div>
-          <ul class=" flex gap-3 p-4 mt-[3px] border-[#efefef] flex-col bg-[#f5f5f5] absolute z-50 border border-solid"
+          <ul class="dct-calendars-select-list flex gap-3 p-4 mt-[3px] border-[#efefef] flex-col bg-[#f5f5f5] absolute z-50 border border-solid"
               v-if="isOpen">
             <li v-for="(calendar, key) in calendarStore.calendars" :key="key">
               <label class="flex gap-1">
-                <input type="checkbox" :value="calendar.id" style="accent-color: #2589ff;"
-                       @click="getCheckedCalendars(calendar.id)" :checked="checkedCalendars.includes(calendar.id)">{{ calendar.summary }}
+                <input type="checkbox" :value="calendar.id" style="accent-color: #2a7cef;"
+                       @click="getCheckedCalendars(calendar.id)"
+                       :checked="checkedCalendars.includes(calendar.id)">{{ calendar.summary }}
               </label>
             </li>
           </ul>
         </div>
-        <div class="absolute top-[23px] right-[23px]"  v-if="accounts.length>1">
+        <div class="absolute top-[23px] right-[23px]" v-if="accounts.length>1">
           <div class="fc">
             <div class="fc-button-group h-[28px]">
               <button type="button" title="Пред" @click="prevAccount" aria-pressed="false"
@@ -54,7 +55,7 @@
     <div role="status">
       <svg
           aria-hidden="true"
-          class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-[#2589ff]"
+          class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-[#2a7cef]"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -88,6 +89,9 @@ import {useEventsStore} from "../stores/events";
 import {storeToRefs} from "pinia";
 import {useAccountStore} from "../stores/account";
 import {useCalendarSettingsStore} from "../stores/calendar_settings";
+import {mountComponent} from "../helpers/mounter";
+import CalendarModal from "../render/Modal.vue";
+import RightModal from "../render/RightModal.vue";
 
 const accountStore = useAccountStore()
 const {accounts} = storeToRefs(accountStore);
@@ -99,6 +103,61 @@ const loader = ref(true)
 const {events} = storeToRefs(eventsStore);
 const checkedCalendars = ref([]);
 const isOpen = ref(false)
+
+const handleEventClick = (clickInfo) => {
+  document.querySelector('#dct_calendar_right_modal').classList.remove('hidden')
+  const event=clickInfo.event
+  eventsStore.getEventUrl(currentAccountId.value,event.id)
+  eventsStore.currentEvent={
+    start:handleDate(event.start),
+    end:handleDate(event.end),
+    title:event.title,
+    description:event.extendedProps.description,
+    calendar:calendarStore.calendars.find((item)=>item.id===event.extendedProps.calendar_id).summary
+  }
+  handleDate(clickInfo.event.start)
+}
+
+function handleDate(dateString,isFull=true){
+
+  if(!dateString){
+    return dateString
+  }
+  let dateObject = new Date(dateString);
+
+// Create options for formatting the date and time in Russian
+  let date = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+  };
+  let time = {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false, // Use 24-hour format
+  };
+
+  let options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false, // Use 24-hour format
+  };
+
+
+  if(isFull){
+    return dateObject.toLocaleString('ru-RU', options)
+  }
+  return {
+    date:dateObject.toLocaleString('ru-RU', date),
+    time:dateObject.toLocaleString('ru-RU', time),
+  }
+}
+
 const calendarOptions = reactive({
   plugins: [
     dayGridPlugin,
@@ -115,6 +174,10 @@ const calendarOptions = reactive({
   initialView: 'dayGridMonth',
   events: events.value, // alternatively, use the `events` setting to fetch from a feed
   slotDuration: '00:30:00',
+  slotLabelFormat: {
+    hour:'2-digit',
+    minute:'2-digit'
+  },
   editable: false,
   selectable: false,
   selectMirror: false,
@@ -124,14 +187,11 @@ const calendarOptions = reactive({
   eventClick: handleEventClick,
   // eventsSet: handleEvents,
   locales: [ruLocale, esLocale],
-  locale: ruLocale
+  locale: ruLocale,
+  buttonText: {
+    list:'Список событий'
+  },
 });
-
-const handleEventClick = (clickInfo) => {
-  if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-    clickInfo.event.remove()
-  }
-}
 
 
 function openList() {
@@ -142,10 +202,10 @@ async function changeAccount() {
   loader.value = true
   currentAccountId.value = accounts.value[currentAccountIndex.value].id
   await calendarStore.getCalendars(currentAccountId.value)
-  checkedCalendars.value=calendarStore.calendars.map(calendar => calendar.id)
+  checkedCalendars.value = calendarStore.calendars.map(calendar => calendar.id)
   await eventsStore.getEvents(currentAccountId.value)
   await eventsStore.getColors(currentAccountId.value)
-  changeColor()
+  getEvents()
   loader.value = false
 }
 
@@ -174,45 +234,50 @@ function getCheckedCalendars(calendarId) {
     checkedCalendars.value.push(calendarId);
   }
 
-  changeColor()
+  getEvents()
 }
 
-function changeColor(){
+function getEvents() {
 
   let filteredEvents = events.value
       .filter(event => checkedCalendars.value.includes(event.calendar_id))
-      .map(event => {
-        const color = calendarStore.calendars.find(item => item.id === event.calendar_id);
-        return {
-          id: event.id,
-          title: event.title,
-          start: event.start,
-          end:event.end,
-        };
-      });
 
   console.log(filteredEvents)
 
-  calendarOptions.events =filteredEvents
+  calendarOptions.events = filteredEvents
 }
 
 onMounted(async () => {
+  if(window.APP.data.current_entity==="widget_page"){
+    await accountStore.getAccounts()
+    await mountComponent("calendar-right-modal", RightModal, "body", "leads", true);
+  }
+
   await changeAccount();
-  checkedCalendars.value=calendarStore.calendars.map(calendar => calendar.id)
+  checkedCalendars.value = calendarStore.calendars.map(calendar => calendar.id)
 
 
   // Function to handle the click event
   function handleClickOutside(event) {
     const targetElement = document.querySelector('.dct-calendars-select');
-    const elemrnt = document.querySelector('.dct-calendars-select');
+    const targetElementLabels = document.querySelectorAll('.dct-calendars-select-list label');
 
-    console.log(targetElement)
-    if (!targetElement.contains(event.target)&&isOpen.value) {
-      console.log('Clicked outside the target element');
-      isOpen.value=false
-    }
+
+      let isOutside = true;
+      console.log(event.target)
+      console.log(targetElementLabels)
+      targetElementLabels.forEach(item => {
+        if (item.contains(event.target)) {
+          isOutside = false;
+        }
+      });
+
+      if (!targetElement.contains(event.target) && isOutside && isOpen.value) {
+        isOpen.value = false;
+      }
+
   }
-  // Add a click event listener to the document
+
   document.addEventListener('click', handleClickOutside);
 })
 
