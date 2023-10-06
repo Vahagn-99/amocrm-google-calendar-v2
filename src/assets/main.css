@@ -365,7 +365,7 @@ video {
   display: flex;
   margin-bottom: 9px;
   margin-top: 26px;
-  align-items: center;
+  align-items: end;
 }
 
 .dct-feedback__button a {
