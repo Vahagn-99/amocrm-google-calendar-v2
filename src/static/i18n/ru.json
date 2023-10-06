@@ -1,7 +1,7 @@
 {
     "widget": {
-        "name": "Google Календарь версия 2.0",
-        "short_description": "Google Календарь версия 2.0",
+        "name": "Google Календарь",
+        "short_description": "Google Календарь",
         "description": "Google Календарь"
     },
     "settings": {
@@ -11,9 +11,9 @@
         "try_free": "Попробовать бесплатно"
     },
     "advanced": {
-        "title": "Google Календарь версия 2.0"
+        "title": "Google Календарь"
     },
     "lang": {
-        "code": "Google Календарь"
+        "code": "Календарь"
     }
 }

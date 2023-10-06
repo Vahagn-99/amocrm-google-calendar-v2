@@ -52,13 +52,13 @@ module.exports = (env, argv) => {
             minimizer: [new TerserPlugin({
                 terserOptions: {
                     compress: {
-                        // pure_funcs: [
-                        //     'console.log',
-                        //     'console.info',
-                        //     'console.debug',
-                        //     'console.warn',
-                        //     'console.error',
-                        // ]
+                        pure_funcs: [
+                            'console.log',
+                            'console.info',
+                            'console.debug',
+                            'console.warn',
+                            'console.error',
+                        ]
                     }
                 }
             })],
