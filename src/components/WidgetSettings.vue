@@ -1,7 +1,6 @@
 <template>
   <section class="dark:bg-gray-900 antialiased">
-    <div class="mx-auto" v-if="!showDrawer">
-
+    <div class="mx-auto">
       <div class="dct-overflow-hidden ml-6 px-4 dct-card">
         <div class="overflow-x-auto">
           <table

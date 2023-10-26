@@ -4,9 +4,10 @@ import apiClient from '../../apiClient';
 import { useSubdomainStore } from './subdomain';
 import {notify} from "@kyvg/vue3-notification";
 
-export const useAccountStore = defineStore('account', () => {
+export const useAccountStore = defineStore('account', async () => {
     //stores
     const subdomainStore = useSubdomainStore();
+    await subdomainStore.asyncSubdomain();
     //state
     const accounts = ref([]);
 
