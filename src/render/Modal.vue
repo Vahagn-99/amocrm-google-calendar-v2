@@ -1,6 +1,7 @@
 <template>
   <div
       class="modal dct_calendar_modal hidden"
+      style="position:static!important"
       id="dct_calendar_modal"
   >
     <div class="modal-scroller custom-scroll">
