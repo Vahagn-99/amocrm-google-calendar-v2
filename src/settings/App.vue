@@ -76,13 +76,13 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const goToAdvancedSettings = async () => {
   // Get the original button element by its id
-  document.getElementById("save_dct_telegram_chat").click();
+  document.getElementById("save_dct_google_calendar").click();
   saveLoading.value = true;
   // need to wait 5 second then
   await delay(5000);
   saveLoading.value = false;
   // perform redirect
-  window.location.href = `https://${subdomain.value.domain}/settings/widgets/dct_telegram_chat`;
+  window.location.href = `https://${subdomain.value.domain}/settings/widgets/dct_google_calendar`;
 };
 
 onMounted(async () => {
