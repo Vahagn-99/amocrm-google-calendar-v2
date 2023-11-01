@@ -277,6 +277,7 @@ function switchNav(next) {
 function showNav(is) {
   return currentNav.value === is;
 }
+
 async function handleAmoAuth() {
   await oauthModal(
     `${window.Host}amo-auth/${subdomainId.value}?client_id=${subdomain.value.integration_id}`

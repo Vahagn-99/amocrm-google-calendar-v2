@@ -1,13 +1,14 @@
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { defineStore } from 'pinia';
 import apiClient from '../../apiClient';
 import { useSubdomainStore } from './subdomain';
-import {notify} from "@kyvg/vue3-notification";
+import { notify } from "@kyvg/vue3-notification";
 
-export const useAccountStore = defineStore('account', async () => {
+export const useAccountStore = defineStore('account', () => {
+
     //stores
     const subdomainStore = useSubdomainStore();
-    await subdomainStore.asyncSubdomain();
+
     //state
     const accounts = ref([]);
 
@@ -20,7 +21,7 @@ export const useAccountStore = defineStore('account', async () => {
 
     const saveAccount = async (account) => {
         try {
-            await apiClient.post(`calendar/v2/accounts/${account.id}`,{name:account.name});
+            await apiClient.post(`calendar/v2/accounts/${account.id}`, { name: account.name });
             notify({
                 type: 'success',
                 title: "Пользователь #" + account.id,
@@ -41,7 +42,7 @@ export const useAccountStore = defineStore('account', async () => {
             await getAccounts()
             notify({
                 type: 'success',
-                title: "Пользователь #"+accountId,
+                title: "Пользователь #" + accountId,
                 text: "Настройки успешно Удалены",
             });
         } catch (error) {
@@ -52,6 +53,8 @@ export const useAccountStore = defineStore('account', async () => {
             });
         }
     }
+
+    onMounted(async () => await subdomainStore.asyncSubdomain())
 
     return {
         getAccounts,
