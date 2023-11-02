@@ -238,7 +238,7 @@ function getEvents() {
 
 onMounted(async () => {
 
-
+  console.log('test')
   await changeAccount();
   checkedCalendars.value = calendarStore.calendars.map(calendar => calendar.id)
 

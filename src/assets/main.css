@@ -1276,3 +1276,7 @@ color:#363b44
 .fc-h-event .fc-event-main{
   color:#363b44;
 }
+
+.feed-note-wrapper.feed-note-wrapper-note.fixed{
+  position: static!important;
+}

@@ -15,10 +15,11 @@ import RightModal from "../render/RightModal.vue";
  */
 export async function mountComponent(id, component, holder, entityIs, append,isCalendar=false) {
     // Append the account ID to the component's ID for uniqueness
+    console.log(window.APP)
     const accountId = window.APP.constant('account').id;
     const uniqueId = `${id}-${accountId}`;
     // Return if element with given ID already exists
-    if (document.getElementById(uniqueId)) {
+    if (document.getElementById(uniqueId)&&!isCalendar) {
         return true;
     }
 
@@ -30,11 +31,14 @@ export async function mountComponent(id, component, holder, entityIs, append,isC
         return true;
     }
 
+    console.log(!entities.includes(currentEntity))
+
     // Get the container element based on the provided holder
     const container = typeof holder === 'string'
         ? document.querySelector(holder)
         : holder;
 
+    console.log(container)
     // Return and log an error if the container is not found
     if (!container) {
         console.error('Container not found');
@@ -47,6 +51,7 @@ export async function mountComponent(id, component, holder, entityIs, append,isC
 
     if (append) {
         container.append(el);
+        console.log('pix')
     } else {
         container.prepend(el);
     }
