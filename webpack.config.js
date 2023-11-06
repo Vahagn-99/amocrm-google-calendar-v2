@@ -50,17 +50,17 @@ module.exports = (env, argv) => {
         optimization: {
             'minimize': true,
             minimizer: [new TerserPlugin({
-                // terserOptions: {
-                //     compress: {
-                //         pure_funcs: [
-                //             'console.log',
-                //             'console.info',
-                //             'console.debug',
-                //             'console.warn',
-                //             'console.error',
-                //         ]
-                //     }
-                // }
+                terserOptions: {
+                    compress: {
+                        pure_funcs: [
+                            'console.log',
+                            'console.info',
+                            'console.debug',
+                            'console.warn',
+                            'console.error',
+                        ]
+                    }
+                }
             })],
         },
     };
