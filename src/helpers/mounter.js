@@ -7,10 +7,11 @@ import RightModal from "../render/RightModal.vue";
 /**
  * Asynchronously mounts a Vue component.
  * @param {string} id - Unique identifier for the component
- * @param {Object} mountable - Vue component to mount
+ * @param component
  * @param {string|HTMLElement} holder - DOM selector or HTMLElement to attach component to
  * @param {string|string[]} entityIs - Entity types that this function applies to
- * @param {Function} callback - Function to be called before mounting
+ * @param append
+ * @param isCalendar
  * @returns {Object|null} - Returns the Vue app instance or null
  */
 export async function mountComponent(id, component, holder, entityIs, append,isCalendar=false) {
@@ -38,6 +39,7 @@ export async function mountComponent(id, component, holder, entityIs, append,isC
         ? document.querySelector(holder)
         : holder;
 
+    console.log(typeof holder)
     console.log(container)
     // Return and log an error if the container is not found
     if (!container) {

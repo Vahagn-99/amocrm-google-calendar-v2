@@ -22,7 +22,7 @@
             </li>
           </ul>
         </div>
-        <div class="absolute top-[23px] right-[23px]" v-if="accounts.length > 1">
+        <div class="dct-page-h" v-if="accounts.length > 1">
           <div class="fc">
             <div class="fc-button-group h-[28px]">
               <button type="button" title="Пред" @click="prevAccount" aria-pressed="false"

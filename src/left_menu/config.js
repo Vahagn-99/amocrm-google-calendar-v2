@@ -20,10 +20,9 @@ import RightModal from "../render/RightModal.vue";
 export async function handleLeftMenu(_amocrm, params, self, $) {
     console.log(params)
     if (params.location === 'widget_page') {
-        const contextMenu = $('#work-area-dct_telegram_chat');
-        $('#work-area-dct_telegram_chat').closest('#work_area').addClass('bg-white')
-        console.log(contextMenu,1)
-        mountComponent('calendar-main', Calendar, contextMenu, 'widget-page', true,true)
+        $('#work-area-dct_google_calendar').closest('#work_area').addClass('bg-white')
+        console.log($('#work-area-dct_google_calendar'),1)
+        mountComponent('calendar-main', Calendar, '#work-area-dct_google_calendar', 'widget-page', true,true)
         mountComponent("calendar-right-modal", RightModal, "body", "widget-page", true);
     }
 }

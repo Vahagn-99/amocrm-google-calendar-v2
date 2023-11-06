@@ -14,6 +14,7 @@ export const useAccountStore = defineStore('account', () => {
 
     //acctions
     const getAccounts = async () => {
+        await subdomainStore.asyncSubdomain();
         const resposne = await apiClient.get(`calendar/v1/${subdomainStore.subdomainId}/accounts`);
         accounts.value = resposne.data.data
         console.log(accounts.value)
@@ -54,7 +55,6 @@ export const useAccountStore = defineStore('account', () => {
         }
     }
 
-    onMounted(async () => await subdomainStore.asyncSubdomain())
 
     return {
         getAccounts,
