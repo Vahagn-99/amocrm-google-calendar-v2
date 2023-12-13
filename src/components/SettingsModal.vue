@@ -333,25 +333,29 @@
                       >Укажите длительность</label
                     >
                     <div class="flex justify-start items-center gap-2">
-                      <div class="flex justify-start items-end gap-2">
-                        <Input
-                          :disabled="usePcker"
-                          type="text"
-                          name="date_district_start"
-                          v-model="settings.date_district_start"
-                          :pattern="['# час']"
-                          placeholder="1 час"
-                        />
+                      <div class="flex justify-start items-end gap-2 ">
+                        <div class="relative">
+                          <Input
+                              :disabled="usePcker"
+                              type="text"
+                              name="date_district_start"
+                              v-model="settings.date_district_start"
+                              placeholder="1"
+                              id="dct-time-picker-1"
+                          />
+                        </div>
                       </div>
                       <div class="flex justify-start items-end gap-2">
-                        <Input
-                          :disabled="usePcker"
-                          type="text"
-                          name="date_district_end"
-                          v-model="settings.date_district_end"
-                          :pattern="['## мин']"
-                          placeholder="00 мин"
-                        />
+                        <div class="relative">
+                          <Input
+                              :disabled="usePcker"
+                              type="text"
+                              name="date_district_end"
+                              v-model="settings.date_district_end"
+                              placeholder="00"
+                              id="dct-time-picker-2"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>

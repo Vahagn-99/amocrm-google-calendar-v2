@@ -14,13 +14,14 @@
       :type="type"
       :name="name"
       :id="name"
+      :max="max?max:''"
       @input="inputEvent()"
       @blur="blurEvent()"
       @change="changeEvent()"
       :placeholder="placeholder"
       v-maska
       :data-maska="pattern"
-      class="dct-input-v2 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      class="dct-input-v2 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-[30px]"
       :class="{
         'dct-input-v2':v2,
         'dct-input':!v2,
@@ -56,6 +57,10 @@ const props = defineProps({
   },
   pattern: {
     type: Array,
+    required: false,
+  },
+  max: {
+    type: Number,
     required: false,
   },
   type: {

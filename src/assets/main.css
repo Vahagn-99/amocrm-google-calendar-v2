@@ -1291,3 +1291,24 @@ color:#363b44
   top: 0!important;
   right: 0!important;
 }
+
+#dct-time-picker-1::after{
+  content:'час';
+  position: absolute;
+  top: 27px;
+  right: 6px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  opacity: 0.5;
+}
+#dct-time-picker-2::after{
+  content:'мин';
+  position: absolute;
+  top: 27px;
+  right: 6px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+/* Method 1: Using appearance */
