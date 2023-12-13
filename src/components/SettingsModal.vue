@@ -342,6 +342,7 @@
                               v-model="settings.date_district_start"
                               placeholder="1"
                               id="dct-time-picker-1"
+                              @update:modelValue="getNumericInput1"
                           />
                         </div>
                       </div>
@@ -354,6 +355,7 @@
                               v-model="settings.date_district_end"
                               placeholder="00"
                               id="dct-time-picker-2"
+                              @update:modelValue="getNumericInput2"
                           />
                         </div>
                       </div>
@@ -534,6 +536,7 @@ import { storeToRefs } from "pinia";
 import CalendarSettings from "./CalendarSettings.vue";
 import { useCalendarSettingsStore } from "../stores/calendar_settings";
 import { notify } from "@kyvg/vue3-notification";
+import {get} from "axios";
 
 const settingsStore = useSettingsStore();
 const selectStore = useSelectStore();
@@ -551,7 +554,7 @@ const props = defineProps({
 const emit = defineEmits(["close-drawer"]);
 // logic
 const useInput = ref(false);
-const usePcker = ref(true);
+const usePcker = ref(!settings.value.date_district);
 
 const isOpenTemplate = ref(false);
 const canAddNewItem = ref(true);
@@ -578,10 +581,12 @@ function copyMarker(id) {
 }
 
 function handleAddress(value) {
+  console.log(value)
   settings.value.event_address_id = value;
 }
 
 function handleTaskName(value) {
+  console.log(value)
   settings.value.event_name_id = value;
 }
 
@@ -591,6 +596,26 @@ function handleStartDate(value) {
 
 function handleEndDate(value) {
   settings.value.end_date_id = value;
+}
+
+function getNumericInput1() {
+  console.log(1)
+  console.log(settings.value.date_district_start)
+    if (!/^\d+$/.test(settings.value.date_district_start)) {
+      // Convert the input to a numeric type (e.g., parseInt or parseFloat)
+      settings.value.date_district_start = parseInt(settings.value.date_district_start, 10);
+    }
+}
+
+function getNumericInput2() {
+  console.log(settings.value.date_district_end)
+  console.log(/^\d+$/.test(settings.value.date_district_end))
+  if (!/^\d+$/.test(settings.value.date_district_end)) {
+    console.log( parseInt(settings.value.date_district_end, 10))
+
+    // Convert the input to a numeric type (e.g., parseInt or parseFloat)
+    settings.value.date_district_end = parseInt(settings.value.date_district_end, 10);
+  }
 }
 
 function handleServiceParentId(parentId) {
