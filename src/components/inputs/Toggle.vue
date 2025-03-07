@@ -7,7 +7,8 @@
           type="checkbox"
           v-model="value"
           :value="!!value"
-          @change="handleChange"
+          @change="changeEvent"
+
           class="sr-only peer"
       />
       <div

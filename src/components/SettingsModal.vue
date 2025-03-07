@@ -340,7 +340,6 @@
                               type="text"
                               name="date_district_start"
                               v-model="settings.date_district_start"
-                              placeholder="1"
                               id="dct-time-picker-1"
                               @update:modelValue="getNumericInput1"
                           />
@@ -353,7 +352,6 @@
                               type="text"
                               name="date_district_end"
                               v-model="settings.date_district_end"
-                              placeholder="00"
                               id="dct-time-picker-2"
                               @update:modelValue="getNumericInput2"
                           />
@@ -553,7 +551,7 @@ const props = defineProps({
 
 const emit = defineEmits(["close-drawer"]);
 // logic
-const useInput = ref(false);
+const useInput = ref(!!settings.value.date_district);
 const usePcker = ref(!settings.value.date_district);
 
 const isOpenTemplate = ref(false);
@@ -596,6 +594,11 @@ function handleStartDate(value) {
 
 function handleEndDate(value) {
   settings.value.end_date_id = value;
+}
+
+function changePicker(v){
+  console.log(v)
+  settings.value.date_district=v
 }
 
 function getNumericInput1() {
@@ -684,9 +687,19 @@ function checkCanAddNewItem() {
 
 async function deleteItem(index, id) {
   settings.value.services.splice(index, 1);
-  //   servicesToDeleteFromSelect.value = servicesToDeleteFromSelect.value.filter(
-  //     (s) => s !== id
-  //   );
+  console.log(index)
+  console.log(settings.value)
+  let temp=settings.value.services
+  settings.value.services=[]
+  console.log(settings.value.services)
+  setTimeout(()=>{
+    settings.value.services=temp
+  },100)
+  console.log(settings.value.services)
+
+    // servicesToDeleteFromSelect.value = servicesToDeleteFromSelect.value.filter(
+    //   (s) => s !== id
+    // );
   checkCanAddNewItem();
 }
 
