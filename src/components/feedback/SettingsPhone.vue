@@ -73,71 +73,28 @@
         class="dct-activate__controls-wrapper"
         style="pointer-events: all; opacity: 1"
       >
-        <div class="dct-activate__controls dct-activate__controls-dct">
-          <div class="dct-activate__controls">
-            <div class="dct-activate__phone w-full">
-              <label>
-                <div class="intl-tel-input">
-                  <Input
-                    id="dct-activation-phone"
-                    label=""
-                    type="tel"
-                    name="dct-phone__activation"
-                    v-model="currentCountryCode"
-                    placeholder="Номер телефона"
-                    :pattern="[currentCountryMask]"
-                    :v2="false"
-                  />
-                  <div class="flag-dropdown" @click="toggleCountryList">
-                    <div class="flex items-center pr-[5px] h-[22px]">
-                      <div class="selected-flag" title="Russia (Россия): +7">
-                        <div class="flag" :class="currentCountryFlag">
-                          <div class="arrow"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <ul class="country-list" v-if="openCountryList">
-                      <li
-                        @click="
-                          handleCountryCode(
-                            country.code,
-                            country.iso.toLowerCase(),
-                            country.mask
-                          )
-                        "
-                        v-for="country in countries"
-                        :key="country.code"
-                        class="country"
-                        :data-dial-code="country.iso"
-                        :data-country-code="country.code.toLowerCase()"
-                      >
-                        <div :class="'flag ' + country.iso.toLowerCase()"></div>
-                        <span class="country-name">{{ country.name }}</span
-                        ><span class="dial-code">{{ country.code }}</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </label>
-            </div>
-            <div class="dct-activate__button">
-              <button
-                @click="handlePhone"
-                type="button"
-                class="button-input"
-                :class="{ 'button-input-disabled': !userAgreed }"
-                id="dct-activation-button"
-              >
+        <div class="flex items-center justify-start gap-2 my-[18px]">
+          <input name="dct-phone__activation" v-model="currentCountryCode"
+                 class="dct-input-v2 dct-input border text-sm h-[38px] pl-3 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
+                 placeholder="Номер телефона"/>
+
+          <button
+              @click="handlePhone"
+              type="button"
+              class="button-input !h-[38px] min-w-[170px] rounded-lg"
+              :class="{ 'button-input-disabled': !userAgreed }"
+              id="dct-activation-button"
+          >
                 <span class="button-input-inner"
-                  ><span class="button-input-inner__text"
-                    >Подтвердить</span
-                  ></span
+                ><span class="button-input-inner__text"
+                >Подтвердить</span
+                ></span
                 >
-              </button>
-            </div>
-          </div>
-          <div class="dct-activate__politics">
-            <label class="control-checkbox control-checkbox_small">
+          </button>
+        </div>
+
+          <div class="dct-activate__politics mt-3 flex items-start justify-start gap-1">
+            <label class="control-checkbox control-checkbox_small mr-[4px] mt-[2px]">
               <div class="control-checkbox__body">
                 <input
                   type="checkbox"
@@ -167,21 +124,17 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import Input from "../inputs/Input.vue";
-
-import { useSubdomainStore } from "../../stores/subdomain";
-import { useSelectStore } from "../../stores/select";
 import { storeToRefs } from "pinia";
+import {useCalendarSubdomainStore} from "../../stores/calendar_subdomain";
 
-const subdomainStore = useSubdomainStore();
-const selectStore = useSelectStore();
+const subdomainStore = useCalendarSubdomainStore();
 
-const { hasPhone, subdomain } = storeToRefs(subdomainStore);
+const { hasPhone, client } = storeToRefs(subdomainStore);
 
 const props = defineProps({
   isMain: Boolean,
@@ -192,38 +145,18 @@ const classObj = computed(() => ({
   "flex items-center justify-center": props.loading,
 }));
 
-const { countries } = storeToRefs(selectStore);
-const openCountryList = ref(false);
 const userAgreed = ref(false);
-const currentCountryCode = ref("+7");
-const currentCountryFlag = ref("ru");
-const currentCountryMask = ref("+7(###)###-##-##");
+const currentCountryCode = ref(null);
 
 async function handlePhone() {
   const data = {
-    phone: currentCountryCode.value,
-    country: currentCountryFlag.value,
-    mask: currentCountryMask.value,
+    phone: currentCountryCode.value
   };
   await subdomainStore.addPhone(data);
 }
 
-function handleCountryCode(code, flag, mask) {
-  currentCountryCode.value = code;
-  currentCountryFlag.value = flag;
-  currentCountryMask.value = code + mask;
-  toggleCountryList();
-}
-
-function toggleCountryList() {
-  openCountryList.value = !openCountryList.value;
-}
-
 onMounted(async () => {
-  await subdomainStore.asyncSubdomain();
-  await selectStore.getCountries();
-  currentCountryCode.value = subdomain.value?.phone ?? "+7";
-  currentCountryFlag.value = subdomain.value?.country ?? "ru";
-  currentCountryMask.value = subdomain.value?.phone_mask ?? "+7(###)###-##-##";
+  await subdomainStore.getClientInfo();
+  currentCountryCode.value = client.value?.phone ?? "+7";
 });
 </script>

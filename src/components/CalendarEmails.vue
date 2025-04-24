@@ -68,12 +68,6 @@ const props = defineProps({
 
 
 
-function deleteStatusItem(event) {
-}
-
-function clickArea(){
-  console.log(inputRef.value.value)
-}
 
 function addFocus(event) {
   if(event.target.classList.contains('dct-shablon-element')){
@@ -83,11 +77,11 @@ function addFocus(event) {
 
 
 function deleteAccount(acc_key) {
-  calendarSettingsStore.calendars[props.gKey].acl.splice(acc_key, 1)
+  calendarSettingsStore.calendars[props.gKey].acl_list.splice(acc_key, 1)
 }
 
 function addAccount(value) {
-  calendarSettingsStore.calendars[props.gKey].acl.push({
+  calendarSettingsStore.calendars[props.gKey].acl_list.push({
     id:'',
     value:value
   })
@@ -106,7 +100,6 @@ onMounted(()=>{
         addAccount(inputRef.value.value)
         inputRef.value.value=''
       },200)
-      console.log('paste')
     });
     }
 
@@ -116,7 +109,6 @@ onMounted(()=>{
   function handleClickOutside(event) {
     // Check if the clicked element is not the target element or its descendants
     if (inputRef.value && !targetElement.contains(event.target) && inputRef.value.value!=='') {
-      console.log('Clicked outside the target element');
       addAccount(inputRef.value.value)
       inputRef.value.value=''
     }

@@ -38,15 +38,18 @@ const changeName=ref(false)
 
 function openInput() {
   changeName.value = true
-  inputRef.value.focus()
+  if(inputRef.value){
+    inputRef.value.focus()
+  }
 }
 
 async function closeInput() {
+
   await accountStore.saveAccount(props.account)
   changeName.value = false
 }
 onMounted(()=>{
-  props.account.name=props.account.name ?? 'Календарь'+ props.gKey
+  props.account.name=props.account.name ?? 'Календарь '+ props.gKey+1
 })
 
 </script>

@@ -12,17 +12,14 @@ export const useAccountStore = defineStore('account', () => {
     //state
     const accounts = ref([]);
 
-    //acctions
     const getAccounts = async () => {
-        await subdomainStore.asyncSubdomain();
-        const resposne = await apiClient.get(`calendar/v1/${subdomainStore.subdomainId}/accounts`);
-        accounts.value = resposne.data.data
-        console.log(accounts.value)
+        const response = await apiClient.get(`/instances`);
+        accounts.value = response.data
     }
 
     const saveAccount = async (account) => {
         try {
-            await apiClient.post(`calendar/v2/accounts/${account.id}`, { name: account.name });
+            await apiClient.post(`/instances/${account.id}`, { name: account.name });
             notify({
                 type: 'success',
                 title: "Пользователь #" + account.id,
@@ -39,7 +36,7 @@ export const useAccountStore = defineStore('account', () => {
 
     const destroyAccount = async (accountId) => {
         try {
-            await apiClient.delete(`calendar/v1/${subdomainStore.subdomainId}/accounts/${accountId}`);
+            await apiClient.delete(`instances/${accountId}`);
             await getAccounts()
             notify({
                 type: 'success',

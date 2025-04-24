@@ -3,7 +3,7 @@
       class="modal dct_calendar_right_modal hidden"
       id="dct_calendar_right_modal"
   >
-    <div class="modal-scroller custom-scroll">
+    <div class="modal-scroller dct-custom-scroll">
       <div
           class="modal-body modal-body-relative bg-white block dct-drawer-fixed z-40 p-4 overflow-y-auto w-[30%] right-0 top-0 m-0 h-full">
         <div class="modal-body__inner">
@@ -77,10 +77,10 @@
 import {useEventsStore} from "../stores/events";
 
 const eventsStore = useEventsStore()
-console.log(eventsStore.currentEvent)
 
 function closeModal() {
   document.querySelector('#dct_calendar_right_modal').classList.add('hidden')
 }
+
 
 </script>

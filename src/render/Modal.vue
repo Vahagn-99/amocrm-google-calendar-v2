@@ -1,6 +1,6 @@
 <template>
   <div class="modal dct_calendar_modal hidden" id="dct_calendar_modal">
-    <div class="modal-scroller custom-scroll">
+    <div class="modal-scroller dct-custom-scroll">
       <span
         class="modal-body__close p-[7px] top-0"
         @click="closeModal"
@@ -28,7 +28,7 @@
         </svg>
       </span>
       <div
-        class="modal-body modal-body-relative overflow-auto block w-[90%] h-full my-[10px] p-[23px] custom-scroll"
+        class="modal-body modal-body-relative overflow-auto block w-[90%] h-full my-[10px] p-[23px] dct-custom-scroll"
       >
         <div class="modal-body__inner">
           <div class="add-group">

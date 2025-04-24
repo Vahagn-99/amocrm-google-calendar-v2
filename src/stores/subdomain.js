@@ -14,26 +14,27 @@ export const useSubdomainStore = defineStore('subdomain', () => {
     const hasPhone = ref(false);
 
     const checkIsRegistred = async () => {
-        const resposne = await apiClient.get(`subdomains/${subdomainId.value}/status`, {byWidgetId: true});
-        isRegistred.value = resposne.data.data.status
+        const response = await apiClient.get(`subdomains/${subdomainId.value}/status`, {byWidgetId: true});
+        isRegistred.value = response.data.data.status
     };
 
     const checkIsLicensed = async () => {
-        const resposne = await apiClient.get(`subdomains/${subdomainId.value}/license`, {byWidgetId: true});
-        const {status} = resposne.data.data
+        const response = await apiClient.get(`subdomains/${subdomainId.value}/license`, {byWidgetId: true});
+        const {status} = response.data.data
         isLicensed.value = status;
     };
 
     const asyncSubdomain = async () => {
         const account = amoStore.account
-        const resposne = await apiClient.get(`subdomains/${account.subdomain}/async`, {byWidgetId: true});
-        subdomain.value = resposne.data.data;
+        const response = await apiClient.get(`subdomains/${account.subdomain}/async`, {byWidgetId: true});
+        subdomain.value = response.data.data;
         subdomainId.value = subdomain.value.id
         localStorage.setItem('subdomain_id', subdomainId.value);
     }
 
+
     const addPhone = async ({phone, country, mask}) => {
-        await apiClient.post(`subdomains/${subdomainId.value}/phone`, {
+        await apiClient.post(`clients/phone`, {
             phone: phone,
             country: country,
             mask: mask
@@ -42,8 +43,8 @@ export const useSubdomainStore = defineStore('subdomain', () => {
     }
 
     const checkHasPhone = async () => {
-        const resposne = await apiClient.get(`subdomains/${subdomainId.value}/phone`, {byWidgetId: true});
-        const {status} = resposne.data.data
+        const response = await apiClient.get(`subdomains/${subdomainId.value}/phone`, {byWidgetId: true});
+        const {status} = response.data.data
         hasPhone.value = status;
     };
 

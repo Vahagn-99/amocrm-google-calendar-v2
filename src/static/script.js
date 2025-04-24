@@ -14,7 +14,14 @@ define([
         this.callbacks = {
             async render() {
                 try {
+                   const response = await self.$authorizedAjax({
+                        url: 'https://google-calendar-api.dicitech.com/clients/auth',
+                    })
+
+                    localStorage.setItem('access_token', response.access_token)
+
                     await App.default.render(_amocrm, self, $);
+
                     return true
                 } catch (error) {
                     throw error

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import EnvironmentPlugin from 'vite-plugin-environment'; // Here we import the plugin that expose env variable when vite bundle up the app
 
 export default defineConfig({
     build: {
@@ -16,5 +17,8 @@ export default defineConfig({
             },
         },
     },
-    plugins: [vue()],
+    plugins: [
+        vue(),
+        EnvironmentPlugin('all', ''),
+    ],
 });

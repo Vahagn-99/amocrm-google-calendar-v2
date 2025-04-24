@@ -16,7 +16,6 @@ import RightModal from "../render/RightModal.vue";
  */
 export async function mountComponent(id, component, holder, entityIs, append,isCalendar=false) {
     // Append the account ID to the component's ID for uniqueness
-    console.log(window.APP)
     const accountId = window.APP.constant('account').id;
     const uniqueId = `${id}-${accountId}`;
     // Return if element with given ID already exists
@@ -32,18 +31,15 @@ export async function mountComponent(id, component, holder, entityIs, append,isC
         return true;
     }
 
-    console.log(!entities.includes(currentEntity))
 
     // Get the container element based on the provided holder
     const container = typeof holder === 'string'
         ? document.querySelector(holder)
         : holder;
 
-    console.log(typeof holder)
-    console.log(container)
+
     // Return and log an error if the container is not found
     if (!container) {
-        console.error('Container not found');
         return null;
     }
 
@@ -53,7 +49,6 @@ export async function mountComponent(id, component, holder, entityIs, append,isC
 
     if (append) {
         container.append(el);
-        console.log('pix')
     } else {
         container.prepend(el);
     }
@@ -61,12 +56,10 @@ export async function mountComponent(id, component, holder, entityIs, append,isC
     const app = createApp(component);
     app.use(pinia)
     if(isCalendar){
-        console.log(123)
         const accountStore=useAccountStore()
         await accountStore.getAccounts()
     }
     app.use(Notifications)
     app.mount(el);
-    console.log(app)
     return app;
 }

@@ -20,3 +20,4 @@ export function deleteClasses(element, ...classes) {
     // ✅ Remove multiple classes
     element.classList.remove(...classes);
 }
+

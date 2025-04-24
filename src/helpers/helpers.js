@@ -4,7 +4,7 @@ export function oauthModal(url) {
     return new Promise((resolve, reject) => {
         const win = window.open(url, '_blank', 'width=800,height=600')
         window.addEventListener('message', function (event) {
-            if (event.origin !== "https://widgets-api.dicitech.com")
+            if (event.origin !== "https://google-calendar-api.dicitech.com")
                 return;
             if (event.data === "closed") {
                 resolve();
@@ -60,10 +60,4 @@ export async function async(amocrm) {
         tariff: account.tariffName,
     }
     data.users = users;
-    try {
-        const { data: { data: { id: subdomainId } } } = await apiClient.post(`subdomains`, data, { byWidgetId: true });
-        return subdomainId;
-    } catch (error) {
-        return;
-    }
 }

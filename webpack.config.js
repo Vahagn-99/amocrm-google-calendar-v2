@@ -53,11 +53,6 @@ module.exports = (env, argv) => {
                 terserOptions: {
                     compress: {
                         pure_funcs: [
-                            'console.log',
-                            'console.info',
-                            'console.debug',
-                            'console.warn',
-                            'console.error',
                         ]
                     }
                 }

@@ -7,7 +7,7 @@ import { handleInit } from "./init/config"
 import { handleLeftMenu } from "./left_menu/config"
 import { async } from './helpers/helpers';
 
-window.Host = "https://widgets-api.dicitech.com/api/";
+window.Host = "https://google-calendar-api.dicitech.com/";
 
 const Widget = {
     init: async (_amocrm, self, $) => await handleInit(self, $),

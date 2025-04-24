@@ -1,6 +1,5 @@
 import { resolve } from 'path';
 import { readFile, writeFile } from 'fs/promises';
-import chalk from 'chalk';
 
 const rootDir = resolve();
 const manifestPath = resolve(rootDir, 'src/static/manifest.json');
@@ -35,7 +34,6 @@ async function updateVersion() {
         // Write the updated version back to the file
         await writeFile(manifestPath, JSON.stringify(manifestData, null, 2));
 
-        console.log(chalk.blue('Version updated to: ' + manifestData.widget.version));
 
     } catch (err) {
         throw err;

@@ -63,12 +63,6 @@
 import { onMounted, ref } from "vue";
 import SettingsPhone from "../components/feedback/SettingsPhone.vue";
 import Support from "../components/feedback/Support.vue";
-import { useSubdomainStore } from "../stores/subdomain";
-import { storeToRefs } from "pinia";
-
-const subdomainStore = useSubdomainStore();
-
-const { subdomain } = storeToRefs(subdomainStore);
 
 const phoneLoading = ref(true);
 const saveLoading = ref(false);
@@ -76,18 +70,17 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const goToAdvancedSettings = async () => {
   // Get the original button element by its id
-  document.getElementById("save_dct_google_calendar").click();
+  document.getElementById("save_google_calendar_v2").click();
   saveLoading.value = true;
   // need to wait 5 second then
   await delay(5000);
   saveLoading.value = false;
+  const subdomain=AMOCRM.constant('account').subdomain
   // perform redirect
-  window.location.href = `https://${subdomain.value.domain}/settings/widgets/dct_google_calendar`;
+  window.location.href = `https://${subdomain}.amocrm.ru/settings/widgets/google_calendar_v2`;
 };
 
 onMounted(async () => {
-  await subdomainStore.asyncSubdomain();
-  await subdomainStore.checkHasPhone();
   phoneLoading.value = false;
 });
 </script>

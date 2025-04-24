@@ -50,7 +50,8 @@ window.AMOCRM = {
                 "photo": "",
                 "user_rank": "master"
             }
-        } else if (name === 'account') {
+        }
+        else if (name === 'account') {
             return {
                 "id": 28430149,
                 "name": "tech8demo11",

@@ -38,7 +38,7 @@
               @click="switchNav('settings')"
               :class="{
                 'dct-active': showNav('settings'),
-                'dct-disabled': !isRegistred || !isLicensed,
+                'dct-disabled':  !isLicensed,
               }"
             >
               <a
@@ -255,17 +255,16 @@ import SettingsPhone from "../components/feedback/SettingsPhone.vue";
 import Support from "../components/feedback/Support.vue";
 import { storeToRefs } from "pinia";
 import {useSelectStore} from "../stores/select";
-
-const subdomainStore = useSubdomainStore();
+import {useCalendarSubdomainStore} from "../stores/calendar_subdomain";
+import {useAccountStore} from "../stores/account";
+const calendarSubdomainStore=useCalendarSubdomainStore()
 const selectStore = useSelectStore();
 
 const {
-  subdomainId,
-  subdomain,
   isRegistred,
   isLicensed,
   hasPhone,
-} = storeToRefs(subdomainStore);
+} = storeToRefs(calendarSubdomainStore);
 
 const currentNav = ref("info");
 
@@ -280,13 +279,13 @@ function showNav(is) {
 
 async function handleAmoAuth() {
   await oauthModal(
-    `${window.Host}amo-auth/${subdomainId.value}?client_id=${subdomain.value.integration_id}`
+    `${window.Host}clients/oauth`
   ).then(async (e) => {
-    await subdomainStore.checkIsRegistred();
+    await calendarSubdomainStore.getClientInfo()
   });
 }
 
-const loadables = ref(["widget", "registred", "license", "status", "hasPhone"]);
+const loadables = ref(["registred", "license", "hasPhone"]);
 
 function isLoading(element) {
   return loadables.value.includes(element);
@@ -295,17 +294,14 @@ function isLoading(element) {
 function loaded(element) {
   loadables.value = loadables.value.filter((item) => item !== element);
 }
-
+const accountStore=useAccountStore()
 onMounted(async () => {
-  await subdomainStore.asyncSubdomain();
-  loaded("widget");
-  loaded("status");
-  await subdomainStore.checkIsRegistred();
+  await calendarSubdomainStore.getClientInfo()
   loaded("registred");
-  await subdomainStore.checkIsLicensed();
   loaded("license");
-  await subdomainStore.checkHasPhone();
   loaded("hasPhone");
+  await accountStore.getAccounts();
+  await selectStore.getFields();
   await selectStore.getStatuses();
 });
 </script>

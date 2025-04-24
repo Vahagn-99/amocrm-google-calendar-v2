@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[20%] text-start mt-3">
+  <div class="w-[20%] text-start mt-4">
     <label
         class="relative inline-flex items-center cursor-pointer justify-center"
     >

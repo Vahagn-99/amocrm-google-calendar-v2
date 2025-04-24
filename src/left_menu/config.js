@@ -18,11 +18,9 @@ import RightModal from "../render/RightModal.vue";
  * @param $
  */
 export async function handleLeftMenu(_amocrm, params, self, $) {
-    console.log(params)
     if (params.location === 'widget_page') {
-        $('#work-area-dct_google_calendar').closest('#work_area').addClass('bg-white')
-        console.log($('#work-area-dct_google_calendar'),1)
-        mountComponent('calendar-main', Calendar, '#work-area-dct_google_calendar', 'widget-page', true,true)
+        $('#work-area-google_calendar_v2').closest('#work_area').addClass('bg-white')
+        mountComponent('calendar-main', Calendar, '#work-area-google_calendar_v2', 'widget-page', true,true)
         mountComponent("calendar-right-modal", RightModal, "body", "widget-page", true);
     }
 }

@@ -1,9 +1,9 @@
-import {onMounted, ref} from 'vue';
+import {ref} from 'vue';
 import {notify} from "@kyvg/vue3-notification";
 import {defineStore} from 'pinia';
 import apiClient from '../../apiClient';
 import {useSubdomainStore} from './subdomain';
-import {data} from "autoprefixer";
+import {useSelectStore} from "./select";
 
 export const useSettingsStore = defineStore('settings', () => {
     //store
@@ -13,55 +13,33 @@ export const useSettingsStore = defineStore('settings', () => {
     const settings = ref([]);
 
     // actions
-    const getSettings = async (googleAccountId) => {
-        try {
-            const response = await apiClient.get(`calendar/v1/account/${googleAccountId}/settings`);
-            settings.value = response.data.data;
-            if (settings.value.date_district) {
-                let array = settings.value.date_district.split(',')
-                settings.value.date_district_start = extractFirstNumber(array[0]);
-                settings.value.date_district_end = extractFirstNumber(array[1]);
-            } else {
-                settings.value.date_district_start = '';
-                settings.value.date_district_end = '';
-            }
-
-            console.log(settings.value.date_district, settings.value.date_district_start, settings.value.date_district_end)
-        } catch (error) {
-            console.log(error);
+    const getSettings = (body) => {
+        settings.value=body
+        if(settings.value.event_name_id===999999||!settings.value.event_name_id){
+            settings.value.event_name_id=0
         }
+        if(!settings.value.event_location_id){
+            settings.value.event_location_id=777699
+        }
+        if(!settings.value.starts_at_id){
+            settings.value.starts_at_id=777695
+        }
+        if(!settings.value.ends_at_id){
+            settings.value.ends_at_id=777697
+        }
+
     }
 
-    function extractFirstNumber(inputString) {
-        // Use a regular expression to find the first sequence of digits
-        const match = inputString.match(/\d+/);
-
-        // If a match is found, convert it to a number and return it; otherwise, return NaN
-        return match ? Number(match[0]) : NaN;
-    }
-
-    function getTime(start, end) {
-        return start + ' , ' + end;
-    }
+    const selectStore=useSelectStore()
 
     const saveSettings = async (accountId) => {
-        console.log(settings.value.date_district_start && settings.value.date_district_end)
 
-        const response = await apiClient.post(`calendar/v1/account/${accountId}/settings`, {
-
-            id: settings.value.id,
-            date_district: settings.value.date_district_start && settings.value.date_district_end ? getTime(settings.value.date_district_start, settings.value.date_district_end) : null,
-            services_parent_id: settings.value.services_parent_id,
-            end_date_id: settings.value.end_date_id,
-            event_name_id: settings.value.event_name_id,
-            event_address_id: settings.value.event_address_id,
-            event_body: settings.value.event_body,
-            start_date_id: settings.value.start_date_id,
-            status_id: settings.value.status_id,
-            pipeline_id: settings.value.pipeline_id,
-            google_account_id: accountId,
-            services: settings.value.services
-        });
+        settings.value.delete_status_ids = settings.value.delete_status_ids.filter(id => !!id );
+        if(settings.value.duration){
+            settings.value.ends_at_id=null
+        }
+        settings.value.template=selectStore.replaceViewWithId(settings.value.template)
+        await apiClient.post(`instances/${accountId}/settings`,settings.value)
     }
 
     const deleteSettings = async (accountId, settingsId) => {

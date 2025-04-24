@@ -18,18 +18,32 @@ export const useEventsStore = defineStore('events', () => {
         url:''
     });
     const getEvents = async (account_id) => {
-        const resposne = await apiClient.get(`calendar/v2/accounts/${account_id}/events`);
-        events.value = resposne.data.data
+        const response = await apiClient.get(`instances/${account_id}/events`);
+
+
+
+        events.value =  response.data.data.map(event => {
+
+            return {
+                id: event.data.google_event_id,
+                calendar_id: event.data.google_calendar_id,
+                title: event.data.summary,
+                description: event.description,
+                location: event.data.location,
+                end: event.data.end.dateTime,
+                start: event.data.start.dateTime,
+            }
+        })
     }
 
-    const getEventUrl = async (account_id,event_id) => {
-        const resposne = await apiClient.get(`calendar/v2/accounts/${account_id}/events/${event_id}/lead`);
-        currentEvent.value.url=resposne.data.link
+    const getLeadUrl = async (account_id,event_id) => {
+        const response = await apiClient.get(`instances/${account_id}/events/${event_id}/lead`);
+        currentEvent.value.url=response.data.link
     }
 
     const getColors = async (account_id) => {
-        const resposne = await apiClient.get(`calendar/v2/accounts/${account_id}/calendars/colors`);
-        colors.value = resposne.data.data
+        const response = await apiClient.get(`instances/${account_id}/calendars/colors`);
+        colors.value = response.data.data
     }
 
 
@@ -39,6 +53,6 @@ export const useEventsStore = defineStore('events', () => {
         getEvents,
         getColors,
         currentEvent,
-        getEventUrl
+        getLeadUrl
     };
 })

@@ -24,12 +24,8 @@ fs.access(widgetPath).then(() => {
         amoMarket: process.env.AMO_MARKET_ACCESS
     };
     const wi = new WidgetInstaller(installerParams);
-    console.log(chalk.blue('starting upload...'));
     wi.upload().then(() => {
-        console.log(chalk.green('Widget uploaded!'));
     }).catch(e => {
-        console.log(chalk.red(e.toString()))
     });
 }).catch((error) => {
-    console.log(chalk.red(error))
 });

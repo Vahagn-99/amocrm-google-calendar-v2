@@ -10,30 +10,29 @@ export const useCalendarSettingsStore = defineStore('calendar_settings', () => {
     const subdomainStore = useSubdomainStore();
     //state
     const calendars = ref([]);
-
+    const current_calendars = ref([]);
     const loader = ref(false)
     const getCalendars = async (account_id) => {
-        const resposne = await apiClient.get(`calendar/v2/accounts/${account_id}/calendars`);
-        calendars.value = resposne.data.data
+        const response = await apiClient.get(`instances/${account_id}/calendars`);
+        calendars.value = response.data
+    }
+
+    const getCurrentCalendars = async (account_id) => {
+        const response = await apiClient.get(`instances/${account_id}/calendars`);
+        current_calendars.value=response.data
     }
 
     const saveCalendar = async (account_id) => {
         try {
-            const resposne = await apiClient.post(`calendar/v2/accounts/${account_id}/calendars`, {calendars: calendars.value});
-            let id = resposne.data.data.id
-            const interval = setInterval(async () => {
-                const progress = await axios.get(window.url + `api/batches/${id}`);
-                if (progress.data.data.progress === 100) {
-                    clearInterval(interval)
-                    await getCalendars(account_id)
-                    loader.value = false;
-                    notify({
-                        type: 'success',
-                        title: "Пользователь #" + account_id,
-                        text: "Настройки успешно сохранены",
-                    });
-                }
-            }, 2000)
+            await getCurrentCalendars(account_id);
+            if(current_calendars.value!==calendars.value){
+                await apiClient.post(`instances/${account_id}/calendars`, {calendars: calendars.value});
+            }
+            notify({
+                type: 'success',
+                title: "Пользователь #" + account_id,
+                text: "Настройки успешно сохранены",
+            });
         } catch (error) {
             loader.value = false;
             notify({
@@ -46,7 +45,7 @@ export const useCalendarSettingsStore = defineStore('calendar_settings', () => {
 
     const deleteCalendar = async (account_id, calendar_id) => {
         try {
-            await apiClient.delete(`calendar/v2/accounts/${account_id}/calendars/${calendar_id}`);
+            await apiClient.delete(`instances/${account_id}/calendars/${calendar_id}`);
             notify({
                 type: 'success',
                 title: "Пользователь #" + account_id,

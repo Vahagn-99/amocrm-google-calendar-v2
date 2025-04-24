@@ -13,12 +13,10 @@ const archive = archiver('zip', {
 });
 
 output.on('close', function () {
-    console.log(chalk.blueBright("Zip archive has been finalized."));
 });
 
 archive.on('warning', function (err) {
     if (err.code === 'ENOENT') {
-        console.log(chalk.yellow('Stat warnings were logged.'));
     } else {
         throw err;
     }
